@@ -1,0 +1,573 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   ROBERTA JAFET — CHAPTER 05, THE WORLDS SHE STEPPED INTO
+   ---------------------------------------------------------------------------
+   An index where the titles are the interface.
+
+   No cards, no thumbnails, no grid. Five names stacked down the page at poster
+   scale, and everything else — the credits, the rule, the strength of the ink —
+   answers to whichever one you are on.
+
+   Type, and nothing else. An earlier version opened a large photograph behind
+   the list on hover; it was cut for reading as tacky. What is left is quieter
+   and harder to get wrong: the active name comes to full strength, the rest
+   recede, a rule grows in her colour and the credits arrive. The titles really
+   are the whole interface.
+
+   Contents
+     01  Shell
+     02  The list
+     03  The titles
+     04  The information
+     05  Pink
+     06  Mobile — scroll takes over from hover
+     07  Reduced motion
+     08  The production opens underneath
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* ── 01 · SHELL ───────────────────────────────────────────────────────────
+   Nothing behind the names. The section is the list.
+*/
+.worlds {
+  position: relative;
+  background: var(--ink);
+  /* clip, not hidden: hidden would make this a scroll container */
+  overflow-x: clip;
+}
+
+/* ── 02 · THE LIST ─────────────────────────────────────────────────────── */
+
+.worlds__list {
+  position: relative;
+  z-index: 1;
+  /* the UA default ol margin, which the old -100vh pull-up used to overwrite */
+  margin: 0;
+  /* the top space now belongs to the hint above; 26vh here as well pushed the
+     first title most of a screen away from the line introducing it */
+  padding: clamp(2.6rem, 6vh, 5rem) 7vw 16vh;
+  list-style: none;
+  counter-reset: world;
+}
+
+.world {
+  position: relative;
+  border-top: 1px solid rgba(244, 241, 238, .1);
+}
+.world:last-child { border-bottom: 1px solid rgba(244, 241, 238, .1); }
+
+.world__link {
+  position: relative;
+
+  /* GRID, NOT FLEX, and that is the whole fix for the credits wandering.
+
+     justify-content: space-between puts the middle child wherever the space
+     happens to be left over, so the credits sat at a different distance from
+     the edge on every row: far out beside WICKED, dragged inwards beside
+     LES MISÉRABLES. The column they are in has to be the same column on all
+     six rows, and only a grid guarantees that.
+
+     Three tracks: the title takes what is left, the credits and the caret take
+     what they need. One of the two title spans is display:none for the other
+     language, and a display:none child takes no grid cell, so this stays three
+     columns in both languages. */
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: baseline;
+  gap: 2.2vw;
+  width: 100%;
+  padding: 2.4vh 0;
+  /* it is a <button> — it opens a panel, it does not go anywhere, and an <a>
+     with href="#" would have lied about that to the keyboard and to search */
+  appearance: none;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+.world:not(.has-shots) .world__link { cursor: default; }
+
+/* ── 03 · THE TITLES ───────────────────────────────────────────────────────
+   Type, and only type. The one thing a title does is come up to full strength
+   when it is the one being looked at, and sit back when it is not. That
+   contrast is the entire mechanism — it is what makes the list read as one
+   name lit at a time rather than five names sitting there.
+*/
+.world__title {
+  display: block;
+  font-family: "Libre Baskerville", Baskerville, "Times New Roman", Georgia, serif;
+  /* Capped at 4.8rem, down from 6.4rem. At a wide screen the titles hit 102px
+     while GALLERY above them sits at 86px, so the items were larger than the
+     name of the section containing them. That is the hierarchy upside down,
+     and it only appeared once the heading was added. The vw term is unchanged,
+     so nothing moves until the cap bites. */
+  font-size: clamp(1.5rem, 5.6vw, 4.8rem);
+  line-height: 1.06;
+  letter-spacing: .005em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgba(244, 241, 238, .55);
+  transition: color 700ms linear;
+}
+
+.is-open .world__title { color: var(--chalk); }
+
+/* ── 04 · THE INFORMATION ──────────────────────────────────────────────────
+   Role and house, set small and quiet, arriving beside the name rather than
+   under it. Real credits — no invented dates.
+*/
+.world__meta {
+  flex: 0 0 auto;
+  text-align: right;
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+  font-size: clamp(.66rem, .78vw, .82rem);
+  line-height: 1.85;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateX(14px);
+  transition: opacity 620ms linear, transform 800ms cubic-bezier(.19, 1, .22, 1);
+}
+.is-open .world__meta { opacity: 1; transform: none; }
+
+/* One role per line. See the markup note: a middle dot between roles strands
+   itself at whichever end of the line you bind it to, and there is no CSS that
+   makes a separator disappear at a wrap. Lines solve it outright, and a cast
+   list reads better as a list anyway. */
+.world__roleLine { display: block; }
+
+/* The venue gets the same treatment as the roles, and it has to.
+
+   It was one nowrap line with a dot in it, which held for "Teatro Renault ·
+   São Paulo" and blew apart on "Teatro Bradesco · Teatro FAAP · São Paulo":
+   the line could not break, so it overflowed its track, pushed the caret out
+   and dragged that row's credits 118px further right than the other five. One
+   segment per line keeps every track as wide as the longest single name, which
+   is what holds the column steady. */
+.world__placeLine { display: block; }
+
+.world__role  { display: block; color: var(--rose); }
+.world__place { display: block; color: rgba(244, 241, 238, .5); }
+
+/* ── 05 · PINK ─────────────────────────────────────────────────────────────
+   One rule that grows out from the left as the world opens. It is the only
+   solid colour in the section.
+*/
+.world::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  width: 100%;
+  background: var(--rose);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 900ms cubic-bezier(.19, 1, .22, 1);
+}
+.world.is-open::after { transform: scaleX(1); }
+
+/* ── 06 · MOBILE — SCROLL TAKES OVER FROM HOVER ────────────────────────────
+   There is no hover, so the centre of the screen does the pointing: worlds.js
+   opens whichever title is crossing the middle and closes it as it leaves.
+   The layout changes with it — the information moves under the name, because
+   there is no room beside it.
+*/
+@media (max-width: 900px) {
+  .worlds__list { padding: 18vh 7vw 22vh; }
+
+  .world__link {
+    display: block;
+    padding: 3.2vh 0;
+    transform: none;
+  }
+  .is-open .world__link { transform: none; }
+
+  /* 8.6vw, down from 10.5vw. On a 375px screen the titles came out at 39px
+     against a GALLERY heading pinned at its 38px minimum, so the items were
+     fractionally larger than the name of the section holding them — the same
+     inversion the desktop cap fixed, arriving by a different route because the
+     heading stops scaling and the titles do not. */
+  .world__title { font-size: clamp(1.5rem, 8.6vw, 3.4rem); white-space: normal; }
+
+  .world__meta {
+    text-align: left;
+    margin-top: .9rem;
+    font-size: clamp(.6rem, 2.9vw, .72rem);
+    transform: translateY(10px);
+  }
+  .is-open .world__meta { transform: none; }
+
+}
+
+/* ── 07 · REDUCED MOTION ───────────────────────────────────────────────────
+   The index still works — every title still opens, and its credits still
+   arrive. Nothing eases and nothing slides in: the change of state is
+   instant.
+*/
+@media (prefers-reduced-motion: reduce) {
+  .world__title,
+  .world__meta,
+  .world::after { transition: none; }
+
+  .world__meta { transform: none; }
+}
+
+
+/* ── 08 · THE PRODUCTION OPENS UNDERNEATH ─────────────────────────────────
+   Clicking a title unrolls the production below it and pushes the rest of the
+   list down. Not a new page, not a lightbox.
+
+   That is the whole argument of this chapter held to: the titles ARE the
+   interface. Sending a click to /wicked would be admitting they are only
+   labels for somewhere else. Opening in place also means two productions can
+   be compared without losing your position in the list.
+
+   The height animates with grid-template-rows 0fr → 1fr, which is the one
+   technique that transitions to CONTENT height. max-height needs a guessed
+   ceiling: too low and long galleries are clipped, too high and the easing
+   spends most of its time on empty space, which reads as a lag before anything
+   moves.
+*/
+.world__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 760ms cubic-bezier(.19, 1, .22, 1);
+}
+.world.is-expanded .world__panel { grid-template-rows: 1fr; }
+
+.world__panelIn {
+  overflow: hidden;   /* required: the 0fr row has to be able to clip it */
+  opacity: 0;
+  transition: opacity 420ms linear;
+}
+.world.is-expanded .world__panelIn {
+  opacity: 1;
+  transition: opacity 620ms linear 180ms;   /* after the room has opened */
+}
+
+/* ── the credits, as a definition list ───────────────────────────────────
+   Her own labels, in her own order — Dir., Music Dir., Chor., Prod. Nothing
+   is invented and no dates are shown, because she publishes none.
+*/
+.world__credits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem 2.6rem;
+  margin: 0 0 clamp(1.4rem, 3vh, 2.4rem);
+  padding-top: clamp(1rem, 2.4vh, 1.8rem);
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+  font-size: clamp(.68rem, .8vw, .84rem);
+  letter-spacing: .04em;
+}
+.world__credits div { display: flex; gap: .55em; }
+.world__credits dt { color: rgba(244, 241, 238, .34); }
+.world__credits dd { margin: 0; color: rgba(244, 241, 238, .78); }
+
+/* ── the strip ───────────────────────────────────────────────────────────
+   One height, natural widths. Her stills mix 3:2 landscape with tall portrait;
+   a grid of equal cells would have to crop one of those, and cropping a
+   production still throws away the staging. At a common height each photograph
+   keeps its own shape and the row sets its own rhythm.
+
+   AN ARROW, NOT A SCROLLBAR. A thin bar under a row of photographs is a
+   report on the state of something, not an invitation to act — it was there
+   and it did not read as "there are more of these". The arrow says what it
+   does and disappears at whichever end it can no longer take you.
+
+   It is HER ROSE, not a dark disc. Over stage stills that can be any colour at
+   all, a near-black button is exactly as easy to miss as the scrollbar was.
+   The rose is the one colour on this site that never appears by accident, so
+   it reads as a control instantly. On hover it inverts to black — the same
+   trade the titles make, and proof the thing is live.
+*/
+.strip {
+  position: relative;
+  margin-right: -7vw;   /* out to the right edge, so the row reads as continuing */
+}
+
+.strip__track {
+  display: flex;
+  gap: clamp(10px, 1.1vw, 18px);
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  padding: 0 7vw clamp(1.6rem, 4vh, 3rem) 0;
+  overscroll-behavior-x: contain;
+  /* the bar is gone; the arrow does this job now */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.strip__track::-webkit-scrollbar { display: none; }
+
+.shot {
+  flex: 0 0 auto;
+  margin: 0;
+  scroll-snap-align: start;
+  height: clamp(200px, 44vh, 420px);
+}
+.shot img {
+  display: block;
+  /* auto width from the declared ratio, so the box exists before the file does */
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── the arrow ───────────────────────────────────────────────────────────
+   Centred on the photographs, not below them. It carries its own scrim
+   because it sits over stage stills that can be any brightness at all — a
+   bare white chevron vanishes against a lit backdrop.
+*/
+.strip__arrow {
+  position: absolute;
+  top: calc(clamp(200px, 44vh, 420px) / 2);
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--rose);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 400ms linear, background-color 320ms linear;
+}
+.world.is-expanded .strip__arrow { opacity: 1; }
+.strip__arrow[hidden] { display: none; }
+.strip__arrow:hover { background: #0a0609; }
+.strip__arrow:focus-visible { outline: 2px solid var(--chalk); outline-offset: 3px; }
+
+.strip__arrow--prev { left: clamp(8px, 1vw, 16px); }
+.strip__arrow--next { right: calc(7vw + clamp(8px, 1vw, 16px)); }
+
+.strip__arrow svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: #0a0609;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 320ms linear;
+}
+.strip__arrow:hover svg { stroke: var(--rose); }
+
+@media (max-width: 900px) {
+  .world__credits { gap: .3rem 1.4rem; }
+  .shot { height: clamp(170px, 32vh, 300px); }
+  .strip__arrow { top: calc(clamp(170px, 32vh, 300px) / 2); width: 44px; height: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .world__panel,
+  .world__panelIn { transition-duration: 1ms; transition-delay: 0s; }
+  .strip__track { scroll-behavior: auto; }
+}
+
+
+/* ── 09 · TELLING PEOPLE THERE IS ANYTHING TO CLICK ───────────────────────
+   A gallery nobody knows about is a gallery that does not exist. The titles
+   looked like a list, and a list is something you read, not something you
+   press.
+
+   A line above the list says what to do in words, once, and every row carries
+   a caret that turns over when it opens.
+
+   The caret used to sit beside a photograph count — "12", "24". The count was
+   cut: it answered a question nobody had, and six numbers scattered down the
+   right-hand side read as a price list. The caret alone says the row moves,
+   which is the only thing that needed saying.
+*/
+/* The chapter opens with its name, at the same weight the press chapter
+   opens with. It had only the small hint line, which meant the one section
+   carrying six productions announced itself more quietly than anything else
+   on the site. */
+.worlds__head {
+  margin: 0;
+  /* 22vh before, which opened a screenful of empty black above the name.
+     The chapter above ends on paper and cuts straight to this one, so the
+     heading is what marks the change and it should arrive with the change,
+     not a beat later. */
+  padding: 9vh 7vw 0;
+  font-family: "Libre Baskerville", Baskerville, "Times New Roman", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.4rem, 6.2vw, 5.4rem);
+  line-height: 1.02;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+
+  /* NOT rose. Every heading on the site was her colour, and so was every
+     hover, every arrow and every outlet name — at which point the colour has
+     stopped being an accent and become the palette. It is reserved now for
+     things that respond to you, and a heading does not. */
+  color: var(--chalk);
+}
+
+.worlds__hint {
+  /* the list carries its indent in its own padding, so a sibling paragraph
+     with no padding sat flush against the screen edge while every title began
+     at 7vw; the line meant to explain the list did not belong to it */
+  margin: 0;
+  padding: clamp(1.1rem, 2.6vh, 2rem) 7vw 0;
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+  font-size: clamp(.62rem, .74vw, .76rem);
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 238, .38);
+}
+.worlds__hint b { font-weight: 300; color: var(--rose); }
+
+.world__count {
+  display: inline-flex;
+  align-items: center;
+  gap: .5em;
+  flex: 0 0 auto;
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+  font-size: clamp(.6rem, .72vw, .74rem);
+  letter-spacing: .18em;
+  /* visible without hover: discovery must not depend on already having found it */
+  color: rgba(244, 241, 238, .34);
+  transition: color 480ms linear;
+}
+.world:hover .world__count,
+.world.is-open .world__count,
+.world.is-expanded .world__count { color: var(--rose); }
+
+.world__caret {
+  width: 9px;
+  height: 9px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 520ms cubic-bezier(.19, 1, .22, 1);
+}
+.world.is-expanded .world__caret { transform: rotate(180deg); }
+
+@media (max-width: 900px) {
+  /* The three-track grid is switched off entirely up in the mobile block,
+     which sets .world__link to display:block — so a grid-template-columns
+     here did nothing at all and was removed. On a phone the title takes the
+     row and the credits stack under it. */
+  .world__count { margin-top: .7rem; }
+}
+
+
+/* ── 10 · THE LIGHTBOX ────────────────────────────────────────────────────
+   A still opens to the size of the screen.
+
+   In the strip these run 420px tall, which is enough to know what a photograph
+   is and not enough to look at one. They are production stills from houses
+   that seat two thousand people; the scale of what she was standing in is the
+   whole subject.
+
+   The backdrop is nearly opaque rather than a blur. Behind it is a black page
+   full of photographs, and blurring that reads as a modal floating on a
+   website — this is supposed to be the only thing in the room.
+*/
+.lb {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1.6vw, 28px);
+  padding: clamp(14px, 3vw, 44px);
+  background: rgba(4, 2, 4, .95);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 380ms linear, visibility 0s linear 380ms;
+}
+.lb-open .lb {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 320ms linear, visibility 0s linear 0s;
+}
+.lb-open { overflow: hidden; }
+
+.lb__frame {
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lb__frame img {
+  max-width: 100%;
+  max-height: 100%;
+  /* contain, never cover: a production still that has been cropped to fill a
+     window is no longer the photograph anybody took */
+  object-fit: contain;
+  transform: scale(.985);
+  opacity: 0;
+  transition: transform 520ms cubic-bezier(.19, 1, .22, 1), opacity 380ms linear;
+}
+.lb-open .lb__frame img { transform: none; opacity: 1; }
+
+.lb__nav,
+.lb__close {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--rose);
+  cursor: pointer;
+  transition: background-color 320ms linear;
+}
+.lb__nav:hover,
+.lb__close:hover { background: #0a0609; }
+.lb__nav[hidden] { display: none; }
+
+.lb__nav svg,
+.lb__close svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: #0a0609;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 320ms linear;
+}
+.lb__nav:hover svg,
+.lb__close:hover svg { stroke: var(--rose); }
+
+.lb__close {
+  position: absolute;
+  top: clamp(14px, 3vw, 40px);
+  right: clamp(14px, 3vw, 40px);
+  z-index: 2;
+}
+
+.lb__nav:focus-visible,
+.lb__close:focus-visible { outline: 2px solid var(--chalk); outline-offset: 3px; }
+
+/* the stills are now buttons in everything but name */
+.shot img { cursor: zoom-in; }
+
+@media (max-width: 900px) {
+  .lb { gap: 6px; padding: 10px; }
+  .lb__nav, .lb__close { width: 42px; height: 42px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lb, .lb__frame img { transition-duration: 1ms; }
+  .lb__frame img { transform: none; }
+}

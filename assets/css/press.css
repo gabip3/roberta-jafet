@@ -1,0 +1,354 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   ROBERTA JAFET — CHAPTER 06, THE PRESS
+   ---------------------------------------------------------------------------
+   Four pieces other people wrote about her, and the coda to the site.
+
+   NOT A NEWS FEED. The same four items under a heading that says NEWS read as
+   a page that stopped being updated in 2023 — the dates become an accusation.
+   Under PRESS they are credentials and the dates are provenance. Nothing about
+   the content changes; the frame decides whether it says "she is covered" or
+   "nothing has happened lately".
+
+   THE HEADLINES ARE NOT TRANSLATED. Two were published in English and two in
+   Portuguese, and they stay that way in both versions of the site, because a
+   headline is a quotation of what an outlet printed. Only the furniture around
+   them — the section label, the read-on link — switches language.
+
+   Contents
+     01  Shell
+     02  The rule and the row
+     03  Date
+     04  What was written
+     05  Leaving
+     06  Mobile
+     07  Reduced motion
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* ── 01 · SHELL ───────────────────────────────────────────────────────────
+   ON PAPER, and that is a rhythm decision rather than a colour one.
+
+   It was black first, continuing out of the index. But the site has been
+   alternating since chapter 02 — dark wall, paper pause, paper story, dark
+   index — and two black chapters back to back flatten that. The page stops
+   breathing exactly where it should be winding down, and the site ends on the
+   same note it just played.
+
+   Paper is also the right material for what is in here. These are newspapers
+   and magazines; they were printed.
+*/
+.press {
+  position: relative;
+  background: var(--paper);
+  color: var(--paper-ink);
+  overflow-x: clip;
+}
+
+/* The index above ends in the dark, so the dark is carried in and burned off
+   rather than cut.
+
+   IT READ AS A STRIPE, and two things did that. It was 34vh, which at any
+   normal screen is a corridor you scroll through; and its middle was saturated
+   plum, which drew a mauve band straight across the screen. A flat horizontal
+   band of colour is a graphic device, not light.
+
+   Now it is 16vh and the mid-tones are drained: the ramp runs warm-dark to
+   paper without ever stopping on a colour, so nothing has an edge to read as
+   a band. The rose is still in it, but as a bloom off-centre rather than a
+   stripe, which is how light has behaved everywhere else on this site. */
+.press__dawn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 16vh;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 120% at 64% 96%, rgba(var(--rose-rgb), .14) 0%, transparent 68%),
+    linear-gradient(to bottom,
+      var(--ink)   0%,
+      #140e12     26%,
+      #2a1f25     46%,
+      #5c4a50     62%,
+      #9c8f8d     76%,
+      #c9c0ba     87%,
+      #e6ded8     95%,
+      var(--paper) 100%);
+}
+
+.press__inner {
+  position: relative;
+  max-width: 1760px;
+  margin: 0 auto;
+  /* clears the 16vh ramp with air to spare; it was 40vh, for a ramp that was
+     more than twice as tall */
+  padding: 22vh 7vw 20vh;
+}
+
+/* It was set at .74vw with wide letterspacing: a caption, on a thing that is
+   a chapter heading. Every other chapter on this site opens at poster scale or
+   opens with nothing at all, and this was neither. Big, in her rose, in the
+   serif the titles use, so the section starts rather than merely beginning. */
+/* A LABEL, NOT A POSTER. This opened exactly like GALLERY did — same serif,
+   same size, same rose — and so did the videos heading. Three sections
+   announcing themselves identically is a system, not a decision: it tells the
+   reader they are all equally important, which is false. The productions index
+   is the feature; press and videos are the back of the book, and print has
+   always marked those differently. A rule running out to the edge is the
+   oldest way to do it. */
+.press__head {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 2rem);
+  margin: 0 0 clamp(2.2rem, 5vh, 3.6rem);
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 500;
+  font-size: clamp(.7rem, .84vw, .88rem);
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--paper-ink);
+}
+.press__head::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: currentColor;
+  opacity: .28;
+}
+
+/* ── 02 · FOUR COLUMNS ───────────────────────────────────────────────────
+   Her own layout, and it is the better one. These were stacked rows first,
+   which reads as a chronology: four entries down a page, each one older than
+   the last, and the eye finishes at the bottom on 2017.
+
+   Side by side they are a body of coverage instead. Nothing is buried under
+   anything, the two 2017 pieces stop looking like the end of something, and
+   four is exactly the number that fits a screen without shrinking.
+*/
+.press__list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1.4rem, 2.1vw, 2.6rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.press__item { min-width: 0; }
+
+.press__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ── 03 · THE PICTURE ─────────────────────────────────────────────────────
+   Not a thumbnail of the article: nobody has those, and a screenshot of
+   somebody else's web page is not a photograph. Each column carries one of HER
+   pictures, chosen for what the piece is about. The two 2017 rows are both
+   about the Les Misérables cast and carry Les Misérables stills; the two
+   profiles carry portraits. That pairing is an editorial choice, not something
+   the articles specify.
+*/
+.press__shot {
+  display: block;
+  overflow: hidden;
+  /* 4:5, not 3:4. These sources are mostly landscape and a 3:4 window threw
+     away more of each frame than it kept. */
+  aspect-ratio: 4 / 5;
+  margin-bottom: clamp(1rem, 2.2vh, 1.6rem);
+  background: rgba(26, 18, 21, .06);
+}
+.press__shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Default cover centres on 50% 50%, which is the middle of the FRAME and
+     almost never the middle of the subject: in a photograph of a person the
+     head sits in the upper third, so a centred crop pushes it to the top edge
+     and fills the bottom with floor. 38% puts the subject where the eye
+     expects it. */
+  object-position: 50% 38%;
+  transition: transform 900ms cubic-bezier(.19, 1, .22, 1);
+}
+.press__link:hover .press__shot img,
+.press__link:focus-visible .press__shot img { transform: scale(1.04); }
+
+/* ── 04 · DATE ────────────────────────────────────────────────────────────
+   The only real dates anywhere on this site: these are the four facts that
+   carry one.
+*/
+/* Heavier than the 300 the rest of the site runs at, and standing off the
+   photograph rather than sitting on its edge. At 300 and .3rem it read as a
+   caption belonging to the picture below it; a date is the first fact about a
+   piece of coverage, not an annotation on an image. */
+.press__date {
+  display: block;
+  margin-bottom: .95rem;
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 500;
+  font-size: clamp(.72rem, .84vw, .88rem);
+  letter-spacing: .13em;
+  color: rgba(26, 18, 21, .6);
+}
+
+.press__body { display: flex; flex-direction: column; flex: 1 1 auto; }
+
+/* ── 05 · WHAT WAS WRITTEN ──────────────────────────────────────────────── */
+
+.press__outlet {
+  display: block;
+  margin-bottom: .9rem;
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+  font-size: clamp(.7rem, .82vw, .86rem);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--rose);
+}
+
+.press__title {
+  display: block;
+  font-family: "Libre Baskerville", Baskerville, "Times New Roman", Georgia, serif;
+  font-size: clamp(1.12rem, 1.46vw, 1.66rem);
+  line-height: 1.34;
+  color: rgba(26, 18, 21, .84);
+  transition: color 480ms linear;
+}
+.press__link:hover .press__title,
+.press__link:focus-visible .press__title { color: var(--paper-ink); }
+
+.press__excerpt {
+  display: block;
+  margin-top: .9rem;
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+  font-size: clamp(.88rem, 1.02vw, 1.06rem);
+  line-height: 1.78;
+  color: rgba(26, 18, 21, .56);
+}
+
+/* ── 06 · LEAVING ─────────────────────────────────────────────────────────
+   Every one of these opens somebody else's website. Pushed to the bottom of
+   the column with margin-top:auto so the four sit on one line however uneven
+   the excerpts above them are.
+*/
+.press__more {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: auto;
+  padding-top: clamp(1.2rem, 2.6vh, 2rem);
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+  font-size: clamp(.7rem, .82vw, .86rem);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--rose);
+  border-bottom: 1px solid transparent;
+  transition: border-color 380ms linear;
+}
+.press__link:hover .press__more,
+.press__link:focus-visible .press__more { border-bottom-color: var(--rose); }
+
+/* the fourth piece has no published URL, so its column does not pretend */
+div.press__link .press__more { display: none; }
+
+.press__link:focus-visible { outline: 2px solid var(--rose); outline-offset: 6px; }
+
+/* ── 07 · NARROWER SCREENS ────────────────────────────────────────────────
+   Four to two to one. Four columns of 12ch would be unreadable long before
+   the screen ran out.
+*/
+@media (max-width: 1180px) {
+  .press__list { grid-template-columns: repeat(2, 1fr); row-gap: clamp(2.5rem, 6vh, 4rem); }
+}
+
+
+@media (max-width: 900px) {
+  .press__dawn { height: 13vh; }
+  .press__inner { padding: 18vh 7vw 14vh; }
+}
+
+/* narrower than the block above, so it has to come after it: same specificity,
+   both match on a phone, and the last one wins */
+@media (max-width: 640px) {
+  .press__list { grid-template-columns: 1fr; }
+  .press__shot { aspect-ratio: 4 / 3; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .press__shot img,
+  .press__title,
+  .press__more { transition: none; }
+  .press__link:hover .press__shot img { transform: none; }
+}
+
+
+/* ── 08 · ONE ROW, THEN THE REST ──────────────────────────────────────────
+   Twelve is the honest number and all twelve are in the markup. Three rows of
+   them is the whole screen before anything else gets a turn, so the first four
+   stand and the other eight wait behind a button, which is what her own site
+   does.
+
+   .is-clipped is added by the script, never in the stylesheet. Without
+   JavaScript the button cannot work, and four items behind a dead control is
+   worse than twelve items and no control at all.
+*/
+.press__list.is-clipped .press__item:nth-child(n+5) { display: none; }
+.press__list.is-clipped.is-open .press__item:nth-child(n+5) { display: block; }
+
+/* the eight arrive rather than appear */
+@keyframes press-arrive {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+.press__list.is-open .press__item:nth-child(n+5) {
+  animation: press-arrive 720ms cubic-bezier(.19, 1, .22, 1) both;
+}
+.press__list.is-open .press__item:nth-child(5),
+.press__list.is-open .press__item:nth-child(6),
+.press__list.is-open .press__item:nth-child(7),
+.press__list.is-open .press__item:nth-child(8)  { animation-delay: 40ms; }
+.press__list.is-open .press__item:nth-child(9),
+.press__list.is-open .press__item:nth-child(10),
+.press__list.is-open .press__item:nth-child(11),
+.press__list.is-open .press__item:nth-child(12) { animation-delay: 140ms; }
+
+.press__button {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .7em;
+  margin-top: clamp(3rem, 7vh, 5.5rem);
+  padding: 1.05em 2.3em;
+  border: 1px solid rgba(26, 18, 21, .22);
+  background: none;
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 500;
+  font-size: clamp(.7rem, .82vw, .86rem);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--paper-ink);
+  cursor: pointer;
+  transition: background-color 360ms linear, border-color 360ms linear, color 360ms linear;
+}
+.press__button:hover,
+.press__button:focus-visible {
+  background: var(--rose);
+  border-color: var(--rose);
+  color: var(--paper);
+}
+.press__button:focus-visible { outline: 2px solid var(--rose); outline-offset: 4px; }
+.press__button[hidden] { display: none; }
+
+.press__button b { font-weight: 500; opacity: .55; }
+
+/* the label swaps with the state, so the control always says what it will do */
+.press__list.is-open ~ .press__button .press__button__open,
+.press__button__shut { display: none; }
+.press__list.is-open ~ .press__button .press__button__shut { display: inline; }
+
+@media (prefers-reduced-motion: reduce) {
+  .press__list.is-open .press__item:nth-child(n+5) { animation: none; }
+}

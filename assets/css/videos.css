@@ -1,0 +1,352 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   ROBERTA JAFET — CHAPTER 07, THE VIDEOS
+   ---------------------------------------------------------------------------
+   Eight pieces of her on stage and on air, and the last chapter.
+
+   FACADES, NOT EMBEDS. Eight YouTube iframes on a page that already carries
+   132 photographs would load eight players, eight sets of third-party cookies
+   and several megabytes before anybody pressed anything. Each card here is a
+   local thumbnail and a button; the player is built only when it is clicked,
+   and only for the one that was clicked.
+
+   Black again. The press chapter is paper, and the site has alternated since
+   chapter 02, so the change is what keeps the ending from flattening. Video
+   wants the dark anyway: a bright ground around a 16:9 frame reads as a page
+   with videos on it, a dark one reads as a screening.
+
+   Contents
+     01  Shell
+     02  A rail, then a grid
+     03  The card
+     04  The play mark
+     05  What it is
+     06  When it plays
+     07  Responsive and reduced motion
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* ── 01 · SHELL ─────────────────────────────────────────────────────────── */
+
+.videos {
+  position: relative;
+  background: var(--ink);
+  color: var(--chalk);
+  overflow-x: clip;
+}
+
+/* Paper above, dark here: the same short ramp the press chapter uses, run the
+   other way and held to 16vh for the same reason. A long one reads as a colour
+   you scroll inside rather than a change of light. */
+.videos__dusk {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 16vh;
+  pointer-events: none;
+  background: linear-gradient(to bottom,
+    var(--paper)  0%,
+    #e6ded8       8%,
+    #c9c0ba      22%,
+    #9c8f8d      36%,
+    #5c4a50      52%,
+    #2a1f25      70%,
+    #140e12      86%,
+    var(--ink)  100%);
+}
+
+.videos__inner {
+  position: relative;
+  max-width: 1760px;
+  margin: 0 auto;
+  padding: 22vh 7vw 20vh;
+}
+
+/* A LABEL, NOT A POSTER. This opened exactly like GALLERY did — same serif,
+   same size, same rose — and so did the videos heading. Three sections
+   announcing themselves identically is a system, not a decision: it tells the
+   reader they are all equally important, which is false. The productions index
+   is the feature; press and videos are the back of the book, and print has
+   always marked those differently. A rule running out to the edge is the
+   oldest way to do it. */
+.videos__head {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 2rem);
+  margin: 0 0 clamp(2.2rem, 5vh, 3.6rem);
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 500;
+  font-size: clamp(.7rem, .84vw, .88rem);
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--chalk);
+}
+.videos__head::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: currentColor;
+  opacity: .28;
+}
+
+/* ── 02 · A RAIL, THEN A GRID ────────────────────────────────────────────
+   Three at a time on a horizontal rail, and a button that turns the rail into
+   a grid of all eight.
+
+   Eight 16:9 cards stacked three-up is three rows and most of two screens at
+   the very end of the site, where the reader has already been through six
+   chapters. Three and a rail is the compact version; anybody who wants the
+   rest asks for it.
+
+   The arrows live beside the heading rather than on the cards. Each card is a
+   frame with two lines of caption under it, so an arrow centred on the card
+   lands in the middle of the text — and a control sitting on a photograph has
+   to carry a scrim to stay legible, which is one more thing to get wrong.
+
+   .is-grid is added by the script. Without JavaScript the list is simply the
+   grid of all eight: better than three behind a control that cannot work.
+*/
+.videos__list {
+  display: flex;
+  gap: clamp(1.4rem, 2.1vw, 2.6rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  /* the arrows do this job */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.videos__list::-webkit-scrollbar { display: none; }
+
+.video {
+  flex: 0 0 calc((100% - 2 * clamp(1.4rem, 2.1vw, 2.6rem)) / 3);
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+/* opened: the rail becomes the grid it always wanted to be */
+.videos__list.is-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.6rem, 2.4vw, 3rem) clamp(1.4rem, 2.1vw, 2.6rem);
+  overflow: visible;
+}
+.videos__list.is-grid .video { flex: none; }
+
+@keyframes video-arrive {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+.videos__list.is-grid .video:nth-child(n+4) {
+  animation: video-arrive 720ms cubic-bezier(.19, 1, .22, 1) both;
+}
+.videos__list.is-grid .video:nth-child(4),
+.videos__list.is-grid .video:nth-child(5),
+.videos__list.is-grid .video:nth-child(6) { animation-delay: 40ms; }
+.videos__list.is-grid .video:nth-child(7),
+.videos__list.is-grid .video:nth-child(8) { animation-delay: 140ms; }
+
+/* ── the arrows, beside the heading ────────────────────────────────────── */
+.videos__rail {
+  position: absolute;
+  right: 7vw;
+  /* level with the label, which is now a single small line */
+  top: calc(22vh - clamp(.2rem, 1vh, .8rem));
+  display: flex;
+  gap: .7rem;
+}
+
+.videos__arrow {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--rose);
+  cursor: pointer;
+  transition: background-color 320ms linear, opacity 320ms linear;
+}
+.videos__arrow:hover { background: #0a0609; }
+.videos__arrow[hidden] { display: none; }
+.videos__arrow:focus-visible { outline: 2px solid var(--chalk); outline-offset: 3px; }
+
+.videos__arrow svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: #0a0609;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 320ms linear;
+}
+.videos__arrow:hover svg { stroke: var(--rose); }
+
+/* ── the button ────────────────────────────────────────────────────────── */
+.videos__button {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .7em;
+  margin-top: clamp(2.5rem, 6vh, 4.5rem);
+  padding: 1.05em 2.3em;
+  border: 1px solid rgba(244, 241, 238, .22);
+  background: none;
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 500;
+  font-size: clamp(.7rem, .82vw, .86rem);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--chalk);
+  cursor: pointer;
+  transition: background-color 360ms linear, border-color 360ms linear, color 360ms linear;
+}
+.videos__button:hover,
+.videos__button:focus-visible {
+  background: var(--rose);
+  border-color: var(--rose);
+  color: #0a0609;
+}
+.videos__button:focus-visible { outline: 2px solid var(--rose); outline-offset: 4px; }
+.videos__button[hidden] { display: none; }
+.videos__button b { font-weight: 500; opacity: .5; }
+
+.videos__button__shut { display: none; }
+.videos__button.is-open .videos__button__open { display: none; }
+.videos__button.is-open .videos__button__shut { display: inline; }
+
+/* ── 03 · THE CARD ─────────────────────────────────────────────────────── */
+
+.video__btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+}
+
+.video__frame {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #0d090c;
+}
+.video__frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 900ms cubic-bezier(.19, 1, .22, 1), opacity 500ms linear;
+}
+.video__btn:hover .video__frame img,
+.video__btn:focus-visible .video__frame img { transform: scale(1.04); opacity: .72; }
+
+/* ── 04 · THE PLAY MARK ──────────────────────────────────────────────────
+   Her rose, inverting to black on hover, which is the trade the strip arrows
+   and the press links already make. A YouTube-red mark would be the only piece
+   of anybody else's branding on the whole site.
+*/
+.video__play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 62px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--rose);
+  transition: background-color 320ms linear, transform 520ms cubic-bezier(.19, 1, .22, 1);
+}
+.video__btn:hover .video__play,
+.video__btn:focus-visible .video__play {
+  background: #0a0609;
+  transform: translate(-50%, -50%) scale(1.06);
+}
+.video__play svg {
+  width: 20px;
+  height: 20px;
+  margin-left: 3px;   /* a triangle looks off-centre when it is centred */
+  fill: #0a0609;
+  transition: fill 320ms linear;
+}
+.video__btn:hover .video__play svg,
+.video__btn:focus-visible .video__play svg { fill: var(--rose); }
+
+.video__btn:focus-visible { outline: 2px solid var(--rose); outline-offset: 5px; }
+
+/* ── 05 · WHAT IT IS ─────────────────────────────────────────────────────
+   Channel then title, the same order the press chapter uses for outlet then
+   headline. Titles are as published, in whatever language they were posted.
+*/
+.video__channel {
+  display: block;
+  margin: clamp(.9rem, 2vh, 1.3rem) 0 .5rem;
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+  font-size: clamp(.66rem, .78vw, .8rem);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--rose);
+}
+
+.video__title {
+  display: block;
+  font-family: "Libre Baskerville", Baskerville, "Times New Roman", Georgia, serif;
+  font-size: clamp(.95rem, 1.16vw, 1.3rem);
+  line-height: 1.38;
+  color: rgba(244, 241, 238, .74);
+  transition: color 420ms linear;
+}
+.video__btn:hover .video__title,
+.video__btn:focus-visible .video__title { color: var(--chalk); }
+
+/* ── 06 · WHEN IT PLAYS ──────────────────────────────────────────────────
+   The script puts an iframe inside .video__frame, so the player inherits the
+   box that was already there and nothing on the page reflows.
+*/
+.video__frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.video.is-playing .video__play { display: none; }
+.video.is-playing .video__btn { cursor: default; }
+
+/* ── 07 · RESPONSIVE AND REDUCED MOTION ────────────────────────────────── */
+
+@media (max-width: 1180px) {
+  .video { flex-basis: calc((100% - clamp(1.4rem, 2.1vw, 2.6rem)) / 2); }
+  .videos__list.is-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 720px) {
+  /* one card fills the rail, so the arrows step through them one by one */
+  .video { flex-basis: 100%; }
+  .videos__list.is-grid { grid-template-columns: 1fr; }
+  .videos__inner { padding: 18vh 7vw 14vh; }
+  .videos__dusk { height: 12vh; }
+  .videos__rail { top: calc(18vh + .3rem); right: 7vw; }
+  .videos__arrow { width: 42px; height: 42px; }
+  .video__play { width: 50px; height: 50px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .videos__list { scroll-behavior: auto; }
+  .videos__list.is-grid .video:nth-child(n+4) { animation: none; }
+  .video__frame img,
+  .video__play,
+  .video__title { transition: none; }
+  .video__btn:hover .video__frame img { transform: none; }
+  .video__btn:hover .video__play { transform: translate(-50%, -50%); }
+}

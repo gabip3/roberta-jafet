@@ -1,0 +1,11 @@
+# Not for search engines yet.
+#
+# This site is live so it can be reviewed, not so it can be found. GitHub Pages
+# on a free account requires a public repository, which means the URL is
+# reachable by anyone who has it — and, without this file, by anyone searching
+# her name.
+#
+# DELETE THIS FILE (or change Disallow to blank) on the day it launches for
+# real. Leaving it in place keeps her own site out of her own search results.
+User-agent: *
+Disallow: /

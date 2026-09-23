@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roberta Jafet · Performer, Producer, Creative Leader</title>
+<meta name="description" content="Roberta Jafet. Performer, producer and creative leader.">
+
+<!-- Runs before first paint, so the opening never flashes its end state and the
+     page never flashes the wrong language. -->
+<script>
+(function () {
+  var d = document.documentElement;
+  d.className = "js";
+  var l = null;
+  try { l = localStorage.getItem("rj-lang"); } catch (e) {}
+  if (l !== "pt" && l !== "en") {
+    l = (navigator.language || "en").toLowerCase().indexOf("pt") === 0 ? "pt" : "en";
+  }
+  d.setAttribute("data-lang", l);
+  d.setAttribute("lang", l);
+})();
+</script>
+
+<!-- The typefaces are embedded in fonts.css, not fetched. On a Mac a failed
+     Google Fonts request falls back to Baskerville and Helvetica Neue, which
+     are close enough that nobody notices they are reading a different site. -->
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/hero.css">
+<link rel="stylesheet" href="assets/css/unfurl.css">
+<link rel="stylesheet" href="assets/css/calm.css">
+<link rel="stylesheet" href="assets/css/story.css">
+<link rel="stylesheet" href="assets/css/worlds.css">
+  <link rel="stylesheet" href="assets/css/press.css">
+  <link rel="stylesheet" href="assets/css/videos.css">
+  <link rel="stylesheet" href="assets/css/close.css">
+  <link rel="stylesheet" href="assets/css/menu.css">
+</head>
+
+<body>
+
+<!-- Language. Top left of the FIRST screen and then gone: it used to be fixed
+     and rode down the page over every chapter heading. It stays reachable from
+     the menu, which is what the menu is for. -->
+<div class="lang" id="lang" role="group" aria-label="Language / Idioma">
+  <button type="button" class="lang__btn" data-set-lang="en">EN</button>
+  <span class="lang__sep" aria-hidden="true"></span>
+  <button type="button" class="lang__btn" data-set-lang="pt">PT</button>
+</div>
+
+<!-- The menu. A full overlay rather than a drawer: the site opens with a spot
+     searching a dark room, and this is that room again — it shuts the page out,
+     comes up black, and lights the chapters in sequence. The button does not
+     become an X; three lines converge into one, a beam closing to a slit. -->
+<button type="button" class="menu__btn" id="menu-btn"
+        aria-expanded="false" aria-controls="menu-panel">
+  <span class="menu__bar"></span>
+  <span class="menu__bar"></span>
+  <span class="menu__bar"></span>
+  <span class="sr-only" data-l="en" lang="en">Menu</span>
+  <span class="sr-only" data-l="pt" lang="pt">Menu</span>
+</button>
+
+<nav class="menu__panel" id="menu-panel" aria-hidden="true" aria-label="Chapters">
+  <ul class="menu__list">
+    <li class="menu__item">
+      <a class="menu__link" href="#chapter-01">
+        <span class="menu__name" data-l="en" lang="en">Home</span>
+        <span class="menu__name" data-l="pt" lang="pt">Home</span>
+      </a>
+    </li>
+    <li class="menu__item">
+      <a class="menu__link" href="#chapter-04">
+        <span class="menu__name" data-l="en" lang="en">Bio</span>
+        <span class="menu__name" data-l="pt" lang="pt">Bio</span>
+      </a>
+    </li>
+    <li class="menu__item">
+      <a class="menu__link" href="#chapter-05">
+        <span class="menu__name" data-l="en" lang="en">Gallery</span>
+        <span class="menu__name" data-l="pt" lang="pt">Galeria</span>
+      </a>
+    </li>
+    <li class="menu__item">
+      <a class="menu__link" href="#chapter-06">
+        <span class="menu__name" data-l="en" lang="en">Press</span>
+        <span class="menu__name" data-l="pt" lang="pt">Imprensa</span>
+      </a>
+    </li>
+    <li class="menu__item">
+      <a class="menu__link" href="#chapter-07">
+        <span class="menu__name" data-l="en" lang="en">Videos</span>
+        <span class="menu__name" data-l="pt" lang="pt">V&iacute;deos</span>
+      </a>
+    </li>
+  </ul>
+
+  <!-- Her CV is a PDF on her current site; linked rather than rebuilt. -->
+  <div class="menu__foot">
+    <span class="menu__lang" role="group" aria-label="Language / Idioma">
+      <button type="button" class="lang__btn" data-set-lang="en">EN</button>
+      <span class="lang__sep" aria-hidden="true"></span>
+      <button type="button" class="lang__btn" data-set-lang="pt">PT</button>
+    </span>
+    <a href="https://www.robertajafet.com/_files/ugd/b7a037_2d00d0507b6c498799bfb308e73b2cf4.pdf"
+       target="_blank" rel="noopener">CV</a>
+    <a href="mailto:contato@robertajafet.com" data-l="en" lang="en">Contact</a>
+    <a href="mailto:contato@robertajafet.com" data-l="pt" lang="pt">Contato</a>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CHAPTER 01 — THE OPENING
+
+     A follow spot. Light searches a dark room, finds her name, and opens on
+     it. The name is only visible where the light falls, so the light does the
+     revealing — nothing is drawn and nothing is diagrammed.
+
+     Everything on screen is light, type, or the grain of the room. There is no
+     line work here on purpose.
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="hero" id="chapter-01" aria-labelledby="hero-title">
+  <div class="hero__frame">
+
+    <!-- ── The light. Position and size come from --sx / --sy / --sr, which
+           hero.js drives: first through the opening sweep, then from the
+           cursor for as long as the visitor stays. ────────────────────── -->
+    <div class="light" aria-hidden="true">
+      <div class="beam"></div>
+      <div class="spot"></div>
+      <div class="pool"></div>
+      <div class="haze haze--a"></div>
+      <div class="haze haze--b"></div>
+    </div>
+
+    <!-- ── The name, in two layers. The ghost is always faintly present; the
+           lit copy sits exactly on top and is masked to the spot, so letters
+           come up as the light crosses them and fall away behind it. ──── -->
+    <div class="type">
+      <h1 class="name" id="hero-title">
+        <span class="sr-only">Roberta Jafet</span>
+        <span class="name__layer name__layer--ghost" aria-hidden="true"><span class="word">Roberta</span> <span class="word">Jafet</span></span>
+        <span class="name__layer name__layer--lit" aria-hidden="true"><span class="word">Roberta</span> <span class="word">Jafet</span></span>
+      </h1>
+
+      <p class="roles" data-l="en" lang="en">Performer <span class="sep" aria-hidden="true">·</span> Producer <span class="sep" aria-hidden="true">·</span> Creative Leader</p>
+      <p class="roles" data-l="pt" lang="pt">Performer <span class="sep" aria-hidden="true">·</span> Produtora <span class="sep" aria-hidden="true">·</span> Líder Criativa</p>
+    </div>
+
+    <div class="grain" aria-hidden="true"></div>
+    <div class="blackout" aria-hidden="true"></div>
+
+    <div class="cue" aria-hidden="true">
+      <span class="cue__track"><span class="cue__dot"></span></span>
+    </div>
+
+  </div><!-- /.hero__frame -->
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CHAPTER 02 — MANY FORMS
+
+     One artist. Many forms. Adapted from the 21st.dev unfurling gallery, with
+     its nested scroll container removed: this is driven by the DOCUMENT scroll
+     so the wheel never changes hands between the hero and here.
+
+     The hero ends on black with her rose still in the air; .unfurl__ember holds
+     that glow for a moment, and only lets go once the first pictures have found
+     their way out of the depth.
+
+     Her own photographs, pulled from the originals behind robertajafet.com.
+     They live in ROBERTA_IMAGES at the top of assets/js/unfurl.js — that array
+     is the only thing to edit to add, remove or reorder them.
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="unfurl" id="chapter-02" aria-label="Roberta Jafet, many forms">
+  <div class="unfurl__frame">
+    <div class="unfurl__stage">
+      <div class="unfurl__leak" aria-hidden="true"></div>
+
+      <!-- Columns are built by unfurl.js and inserted before the type, so the
+           deep line stays behind the pictures. -->
+      <div class="unfurl__matrix"></div>
+
+    </div>
+
+    <div class="unfurl__ember" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- Outside .unfurl__stage on purpose. The stage carries the perspective,
+         which makes it a 3D rendering context where children sort by their Z
+         and not by z-index — so anything in front (every frame at positive Z,
+         and all the type) punches straight through a mask placed inside it.
+         Out here it is a flat 2D overlay and reliably covers everything, which
+         is what lets the top and bottom of the scene dissolve into the black
+         instead of ending on a seam. -->
+    <div class="unfurl__edges" aria-hidden="true"></div>
+
+    <!-- The statement sits out here in flat 2D, above the edge fade, and not
+         inside the matrix. It used to ride in the 3D space, but both halves are
+         in front of every picture anyway, so it gained nothing from the depth —
+         and it cost a lot: bringing type forward in perspective also throws it
+         outward from the vanishing point, so during the exit both lines drifted
+         into the edge fade exactly when they most needed reading. Out here the
+         position is stable at every scroll offset. -->
+    <div class="unfurl__type">
+      <p class="say say--one" data-l="en" lang="en">More than one way</p>
+      <p class="say say--two" data-l="en" lang="en">to tell a <em>story.</em></p>
+      <p class="say say--one" data-l="pt" lang="pt">Mais de um jeito</p>
+      <p class="say say--two" data-l="pt" lang="pt">de contar uma <em>história.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CHAPTER 03 — THE PAUSE
+
+     Somewhere to breathe. Chapters 01 and 02 are both pinned scenes scrubbed
+     by the wheel; this one sits in normal flow, so the page finally just
+     scrolls. That change of gear is the pause.
+
+     It is also the first light surface on the site: .calm__dawn burns the dark
+     of chapter 02 off into paper, and .calm__dusk takes it back down at the
+     bottom, where her productions begin to surface.
+
+     Copy is placeholder. The section ends on the invitation, which hands
+     straight over to the index in chapter 04 — the production titles live
+     there, once, where they actually do something.
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="calm" id="chapter-03" aria-label="Roberta Jafet">
+  <div class="calm__dawn" aria-hidden="true"></div>
+
+  <div class="calm__spread">
+    <div class="calm__words">
+      <p class="calm__lead lift" data-l="en" lang="en" style="--d:.05s">A life shaped by performance, curiosity and the courage to keep <em>evolving</em>.</p>
+      <p class="calm__lead lift" data-l="pt" lang="pt" style="--d:.05s">Uma vida moldada por performance, curiosidade e a coragem de seguir <em>mudando</em>.</p>
+
+    </div>
+
+    <figure class="calm__portrait lift" style="--d:.14s">
+      <img src="assets/img/portrait-knit.jpg" alt="" width="934" height="1400" loading="lazy" decoding="async">
+    </figure>
+  </div>
+
+  <div class="calm__dusk" aria-hidden="true"></div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CHAPTER 04 — THE STORY
+
+     Her biography, set as a magazine profile rather than a résumé. The copy is
+     hers, unedited; what is designed is the hierarchy. Four movements — the
+     work, the training, the producing, and now — each with its own measure and
+     its own place in the grid, so the eye moves through a spread.
+
+     It sits here on purpose: chapter 03 is the pause and has to stay short,
+     and chapter 02 is the moving wall, which prose would fight. The invitation
+     into the index moved down here too, since at the end of the pause it was
+     handing over before the story had been told.
+
+     COPY IS HERS IN BOTH LANGUAGES. The English is her own, taken from the
+     /english page of her current site — not a translation. The emphasis
+     follows the bold in her own markup exactly: show titles become <em> and
+     carry her colour, everything else she bolded becomes <strong>.
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="story" id="chapter-04" aria-label="Roberta Jafet">
+  <div class="story__inner">
+
+    <p class="story__lede lift" data-l="pt" lang="pt" style="--d:.05s">
+      Natural de São Paulo, a <strong>atriz</strong> e <strong>empreendedora cultural</strong> trabalha há <strong>mais de dez anos</strong> nos <strong>maiores musicais do Brasil e do mundo</strong>. Por seu talento, a artista é reconhecida por integrar o elenco de grandes <strong>franquias da Broadway</strong>, passando por renomadas produtoras como T4F e Atelier de Cultura. Entre seus principais trabalhos estão <em>A Família Addams</em>, <em>Wicked</em>, como cover de Elphaba, <em>Les Misérables</em>, <em>Annie</em>, brilhando como Star-to-Be, e <em>Escola do Rock</em>, como cover de Rosalie Mullins e Patty DiMarco.
+    </p>
+    <p class="story__lede lift" data-l="en" lang="en" style="--d:.05s">
+      Born in São Paulo, the <strong>actress</strong> and <strong>entertainment executive</strong> has been working in the <strong>world&rsquo;s most famous musicals</strong> for <strong>over ten years</strong>. For her talent, the artist is recognized for being cast in major <strong>Broadway franchises</strong> and working alongside highly esteemed producers such as T4F and Atelier de Cultura. Her resumé includes <em>The Addams Family</em>, <em>Wicked</em>, where she covered the role of Elphaba, <em>Les Misérables</em>, <em>Annie</em>, shining as Star-to-Be, and <em>School of Rock</em>, covering for Rosalie Mullins and Patty DiMarco.
+    </p>
+
+    <figure class="story__plate story__plate--a lift" style="--d:.12s">
+      <img src="assets/img/stage-ensemble.jpg" alt="" loading="lazy" decoding="async">
+    </figure>
+
+    <p class="story__detail lift" data-l="pt" lang="pt" style="--d:.05s">
+      Desde cedo, soube que seu destino era estar nos palcos, iniciando sua trajetória artística na <strong>Graded School of São Paulo</strong>. Ao longo dos anos, aprimorou sua técnica de performance com grandes mestres tais como <strong>Sara Sarres</strong> (BR), <strong>Mary Setrakian</strong> (NY), <strong>Fernanda Douglas</strong> (Liz Caplan Studios), <strong>Christian Fletcher</strong> (AMDA), <strong>David Brunetti</strong>, <strong>Lynn Wallis</strong> (RAD) e <strong>Christiane Matallo</strong>. Na dança, se formou em Ballet Clássico pela <strong>Royal Academy of Dance</strong> (RAD) na <strong>Lucianne Murta Escola de Ballet</strong>. Academicamente, obteve seu <strong>Mestrado em Liderança e Gestão de Empreendimentos Criativos</strong> na <strong>Northwestern University</strong> (Chicago) e seu <strong>Bacharel em Arquitetura e Urbanismo</strong> na <strong>FAAP</strong> (São Paulo).
+    </p>
+    <p class="story__detail lift" data-l="en" lang="en" style="--d:.05s">
+      From an early age, she knew her destiny was to be on stage, starting her artistic journey at <strong>Graded School of São Paulo</strong>. Over the years, she honed her performance technique with great mentors such as <strong>Sara Sarres</strong> (BR), <strong>Mary Setrakian</strong> (NY), <strong>Fernanda Douglas</strong> (Liz Caplan Studios), <strong>Christian Fletcher</strong> (AMDA), <strong>David Brunetti</strong>, <strong>Lynn Wallis</strong> (RAD) and <strong>Christiane Matallo</strong>. In dance, she graduated in Classical Ballet from the <strong>Royal Academy of Dance</strong> (RAD) at <strong>Lucianne Murta Ballet School</strong>. Academically, Roberta earned her <strong>Master&rsquo;s in Leadership for Creative Enterprises</strong> from <strong>Northwestern University</strong> (Chicago) and her <strong>Bachelor&rsquo;s in Architecture and Urban Design</strong> from <strong>FAAP</strong> (São Paulo).
+    </p>
+
+    <p class="story__made lift" data-l="pt" lang="pt" style="--d:.05s">
+      Em 2021, <strong>produziu</strong> seu primeiro show <em>Era Uma Vez</em>, espetáculo musical que levou os contos de fadas ao palco do <strong>Teatro Bradesco</strong>. Nele, clássicas canções ganharam interpretações e arranjos inesquecíveis regidos pelo <strong>Maestro João Carlos Martins</strong> e acompanhados por sua <strong>Orchestra Bachiana Filarmônica</strong>. Por essa iniciativa, Jafet é considerada <strong>pioneira na retomada pós-pandêmica de espetáculos</strong> no Brasil.
+    </p>
+    <p class="story__made lift" data-l="en" lang="en" style="--d:.05s">
+      In 2021, Roberta <strong>produced</strong> her first show <em>Once Upon a Time</em>, a musical spectacle that brought an enchanted fairy tale world to the <strong>Bradesco Theater</strong>. Here, classic songs received unforgettable renditions and arrangements conducted by <strong>Maestro João Carlos Martins</strong> and accompanied by his <strong>Bachian Philharmonic Orchestra</strong>. Thanks to this initiative, she is considered a <strong>pioneer in the live entertainment post-pandemic comeback</strong> in Brazil.
+    </p>
+
+    <figure class="story__plate story__plate--b lift" style="--d:.12s">
+      <img src="assets/img/performance-wicked.jpg" alt="" loading="lazy" decoding="async">
+    </figure>
+
+    <p class="story__now lift" data-l="pt" lang="pt" style="--d:.05s">
+      Atualmente, mora nos <strong>Estados Unidos</strong> e lidera sua produtora cultural <strong>Rosa Entertainment</strong> em conjunto com sua sócia, <strong>Sara Sarres</strong>.
+    </p>
+    <p class="story__now lift" data-l="en" lang="en" style="--d:.05s">
+      Currently, Roberta resides in the <strong>United States</strong> and leads her entertainment production company <strong>Rosa Entertainment</strong> alongside <strong>Sara Sarres</strong>.
+    </p>
+
+    <p class="story__invite lift" data-l="en" lang="en" style="--d:.2s"><span>Explore the roles, productions and worlds that shaped her journey.</span></p>
+    <p class="story__invite lift" data-l="pt" lang="pt" style="--d:.2s"><span>Percorra os papéis, as produções e os mundos que formaram sua trajetória.</span></p>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CHAPTER 05 — THE WORLDS SHE STEPPED INTO
+
+     An index where the titles are the interface. No cards, no thumbnails, no
+     grid: five names at poster scale, and the credits, the rule and the
+     colour of the room all answer to whichever one you are on.
+
+     Hovering brings the active title to full strength, recedes the rest, grows
+     a rule in her colour and brings up the credits. CLICKING opens the
+     production underneath the title: its credits, and a strip of stills that
+     scrolls sideways. The list pushes down to make room and closes again, so
+     you can compare two productions without losing your place — which is the
+     reason this is not five separate pages.
+
+     CREDITS ARE REAL — role and house are from her own casting sheet. No dates
+     are shown because none could be verified; add them here when confirmed.
+
+     LINKS go to #wicked, #mis, #annie, #rock, #addams. Those chapters do not
+     exist yet; repoint the hrefs when they do.
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="worlds" id="chapter-05" aria-label="Productions">
+  <h2 class="worlds__head" data-l="en" lang="en">Gallery</h2>
+  <h2 class="worlds__head" data-l="pt" lang="pt">Galeria</h2>
+
+  <p class="worlds__hint" data-l="en" lang="en">Click a title for <b>photographs, cast and crew</b></p>
+  <p class="worlds__hint" data-l="pt" lang="pt">Clique num t&iacute;tulo para ver <b>fotos e ficha t&eacute;cnica</b></p>
+
+  <ol class="worlds__list">
+      <li class="world has-shots" data-world="wicked" style="--i:0">
+        <button class="world__link" type="button" aria-expanded="false" aria-controls="panel-wicked">
+          <span class="world__title" data-l="en" lang="en">Wicked</span>
+          <span class="world__title" data-l="pt" lang="pt">Wicked</span>
+          <span class="world__meta">
+            <span class="world__role" data-l="en" lang="en"><span class="world__roleLine">Elphaba u/s</span><span class="world__roleLine">Ensemble</span><span class="world__roleLine">Umbrella Girl</span></span>
+            <span class="world__role" data-l="pt" lang="pt"><span class="world__roleLine">Elphaba cover</span><span class="world__roleLine">Ensemble</span><span class="world__roleLine">Umbrella Girl</span></span>
+            <span class="world__place"><span class="world__placeLine">Teatro Renault</span><span class="world__placeLine">São Paulo</span></span>
+          </span>
+                  <span class="world__count">
+            <svg class="world__caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9 L12 16 L19 9"/></svg>
+          </span>
+        </button>
+        <div class="world__panel" id="panel-wicked">
+          <div class="world__panelIn">
+        <dl class="world__credits">
+          <div><dt>Dir.</dt><dd>Lisa Leguillou</dd></div>
+          <div><dt>Music Dir.</dt><dd>Adam Souza</dd></div>
+          <div><dt>Chor.</dt><dd>Corinne Herrera</dd></div>
+          <div><dt>Prod.</dt><dd>T4F</dd></div>
+        </dl>
+        <div class="strip">
+          <div class="strip__track">
+            <figure class="shot"><img src="assets/img/wicked/wicked-01.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/wicked/wicked-02.jpg" alt="" width="1401" height="2056" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/wicked/wicked-03.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/wicked/wicked-04.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/wicked/wicked-05.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/wicked/wicked-06.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/wicked/wicked-07.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/wicked/wicked-08.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/wicked/wicked-09.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/wicked/wicked-10.jpg" alt="" width="1500" height="2254" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/wicked/wicked-11.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/wicked/wicked-12.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"></figure>
+          </div>
+          <button class="strip__arrow strip__arrow--prev" type="button" aria-label="Previous" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 L7 12 L15 20"/></svg>
+          </button>
+          <button class="strip__arrow strip__arrow--next" type="button" aria-label="Next">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 L17 12 L9 20"/></svg>
+          </button>
+        </div>
+          </div>
+        </div>
+      </li>
+      <li class="world has-shots" data-world="mis" style="--i:1">
+        <button class="world__link" type="button" aria-expanded="false" aria-controls="panel-mis">
+          <span class="world__title" data-l="en" lang="en">Les Misérables</span>
+          <span class="world__title" data-l="pt" lang="pt">Les Misérables</span>
+          <span class="world__meta">
+            <span class="world__role" data-l="en" lang="en"><span class="world__roleLine">Ensemble</span><span class="world__roleLine">Madame</span></span>
+            <span class="world__role" data-l="pt" lang="pt"><span class="world__roleLine">Ensemble</span><span class="world__roleLine">Madame</span></span>
+            <span class="world__place"><span class="world__placeLine">Teatro Renault</span><span class="world__placeLine">São Paulo</span></span>
+          </span>
+                  <span class="world__count">
+            <svg class="world__caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9 L12 16 L19 9"/></svg>
+          </span>
+        </button>
+        <div class="world__panel" id="panel-mis">
+          <div class="world__panelIn">
+        <dl class="world__credits">
+          <div><dt>Dir.</dt><dd>James Powell · Adrian Sarple</dd></div>
+          <div><dt>Music Dir.</dt><dd>Alfonso Casado Trigo</dd></div>
+          <div><dt>Chor.</dt><dd>Liam McIlwain</dd></div>
+          <div><dt>Prod.</dt><dd>T4F · C. Mackintosh</dd></div>
+        </dl>
+        <div class="strip">
+          <div class="strip__track">
+            <figure class="shot"><img src="assets/img/mis/mis-01.jpg" alt="" width="1021" height="720" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/mis/mis-02.jpg" alt="" width="1500" height="996" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/mis/mis-03.jpg" alt="" width="1440" height="960" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/mis/mis-04.jpg" alt="" width="1440" height="960" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/mis/mis-05.jpg" alt="" width="1379" height="920" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/mis/mis-06.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/mis/mis-07.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/mis/mis-08.jpg" alt="" width="1500" height="996" loading="lazy" decoding="async"></figure>
+          </div>
+          <button class="strip__arrow strip__arrow--prev" type="button" aria-label="Previous" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 L7 12 L15 20"/></svg>
+          </button>
+          <button class="strip__arrow strip__arrow--next" type="button" aria-label="Next">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 L17 12 L9 20"/></svg>
+          </button>
+        </div>
+          </div>
+        </div>
+      </li>
+      <li class="world has-shots" data-world="annie" style="--i:2">
+        <button class="world__link" type="button" aria-expanded="false" aria-controls="panel-annie">
+          <span class="world__title" data-l="en" lang="en">Annie</span>
+          <span class="world__title" data-l="pt" lang="pt">Annie</span>
+          <span class="world__meta">
+            <span class="world__role" data-l="en" lang="en"><span class="world__roleLine">Star-to-Be</span><span class="world__roleLine">Grace Farrell u/s</span></span>
+            <span class="world__role" data-l="pt" lang="pt"><span class="world__roleLine">Star-to-Be</span><span class="world__roleLine">Grace Farrell cover</span></span>
+            <span class="world__place"><span class="world__placeLine">Teatro Santander</span><span class="world__placeLine">São Paulo</span></span>
+          </span>
+                  <span class="world__count">
+            <svg class="world__caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9 L12 16 L19 9"/></svg>
+          </span>
+        </button>
+        <div class="world__panel" id="panel-annie">
+          <div class="world__panelIn">
+        <dl class="world__credits">
+          <div><dt>Dir.</dt><dd>Miguel Falabella</dd></div>
+          <div><dt>Music Dir.</dt><dd>Daniel Rocha</dd></div>
+          <div><dt>Chor.</dt><dd>Katia Barros</dd></div>
+          <div><dt>Prod.</dt><dd>Atelier de Cultura</dd></div>
+        </dl>
+        <div class="strip">
+          <div class="strip__track">
+            <figure class="shot"><img src="assets/img/annie/annie-01.jpg" alt="" width="1500" height="2250" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/annie/annie-02.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/annie/annie-03.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/annie/annie-04.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/annie/annie-05.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/annie/annie-06.jpg" alt="" width="1500" height="1048" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/annie/annie-07.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/annie/annie-08.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/annie/annie-09.jpg" alt="" width="1500" height="1086" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/annie/annie-10.jpg" alt="" width="1500" height="1072" loading="lazy" decoding="async"></figure>
+          </div>
+          <button class="strip__arrow strip__arrow--prev" type="button" aria-label="Previous" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 L7 12 L15 20"/></svg>
+          </button>
+          <button class="strip__arrow strip__arrow--next" type="button" aria-label="Next">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 L17 12 L9 20"/></svg>
+          </button>
+        </div>
+          </div>
+        </div>
+      </li>
+      <li class="world has-shots" data-world="rock" style="--i:3">
+        <button class="world__link" type="button" aria-expanded="false" aria-controls="panel-rock">
+          <span class="world__title" data-l="en" lang="en">School of Rock</span>
+          <span class="world__title" data-l="pt" lang="pt">Escola do Rock</span>
+          <span class="world__meta">
+            <span class="world__role" data-l="en" lang="en"><span class="world__roleLine">Rosalie Mullins u/s</span><span class="world__roleLine">Patty Di Marco u/s</span><span class="world__roleLine">Ensemble</span></span>
+            <span class="world__role" data-l="pt" lang="pt"><span class="world__roleLine">Rosalie Mullins cover</span><span class="world__roleLine">Patty Di Marco cover</span><span class="world__roleLine">Ensemble</span></span>
+            <span class="world__place"><span class="world__placeLine">Teatro Santander</span><span class="world__placeLine">São Paulo</span></span>
+          </span>
+                  <span class="world__count">
+            <svg class="world__caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9 L12 16 L19 9"/></svg>
+          </span>
+        </button>
+        <div class="world__panel" id="panel-rock">
+          <div class="world__panelIn">
+        <dl class="world__credits">
+          <div><dt>Dir.</dt><dd>Mariano Detry</dd></div>
+          <div><dt>Music Dir.</dt><dd>Daniel Rocha</dd></div>
+          <div><dt>Chor.</dt><dd>Philip Thomas</dd></div>
+          <div><dt>Prod.</dt><dd>Atelier de Cultura</dd></div>
+        </dl>
+        <div class="strip">
+          <div class="strip__track">
+            <figure class="shot"><img src="assets/img/rock/rock-01.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/rock/rock-02.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/rock/rock-03.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/rock/rock-04.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/rock/rock-05.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/rock/rock-06.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/rock/rock-07.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/rock/rock-08.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/rock/rock-09.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/rock/rock-10.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/rock/rock-11.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/rock/rock-12.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+          </div>
+          <button class="strip__arrow strip__arrow--prev" type="button" aria-label="Previous" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 L7 12 L15 20"/></svg>
+          </button>
+          <button class="strip__arrow strip__arrow--next" type="button" aria-label="Next">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 L17 12 L9 20"/></svg>
+          </button>
+        </div>
+          </div>
+        </div>
+      </li>
+      <li class="world has-shots" data-world="addams" style="--i:4">
+        <button class="world__link" type="button" aria-expanded="false" aria-controls="panel-addams">
+          <span class="world__title" data-l="en" lang="en">The Addams Family</span>
+          <span class="world__title" data-l="pt" lang="pt">A Família Addams</span>
+          <span class="world__meta">
+            <span class="world__role" data-l="en" lang="en"><span class="world__roleLine">Ensemble</span><span class="world__roleLine">Aeromoça</span></span>
+            <span class="world__role" data-l="pt" lang="pt"><span class="world__roleLine">Ensemble</span><span class="world__roleLine">Aeromoça</span></span>
+            <span class="world__place"><span class="world__placeLine">Teatro Renault</span><span class="world__placeLine">São Paulo</span></span>
+          </span>
+                  <span class="world__count">
+            <svg class="world__caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9 L12 16 L19 9"/></svg>
+          </span>
+        </button>
+        <div class="world__panel" id="panel-addams">
+          <div class="world__panelIn">
+        <dl class="world__credits">
+          <div><dt>Dir.</dt><dd>Jerry Zaks · Steve Bebout</dd></div>
+          <div><dt>Music Dir.</dt><dd>Mary Mitchell Campbell</dd></div>
+          <div><dt>Chor.</dt><dd>Dontee Kiehn</dd></div>
+          <div><dt>Prod.</dt><dd>T4F</dd></div>
+        </dl>
+        <div class="strip">
+          <div class="strip__track">
+            <figure class="shot"><img src="assets/img/addams/addams-01.jpg" alt="" width="922" height="612" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/addams/addams-02.jpg" alt="" width="801" height="532" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/addams/addams-03.jpg" alt="" width="800" height="532" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/addams/addams-04.jpg" alt="" width="798" height="532" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/addams/addams-05.jpg" alt="" width="802" height="534" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/addams/addams-06.jpg" alt="" width="801" height="502" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/addams/addams-07.jpg" alt="" width="960" height="638" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/addams/addams-08.jpg" alt="" width="752" height="500" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/addams/addams-09.jpg" alt="" width="751" height="492" loading="lazy" decoding="async"></figure>
+          </div>
+          <button class="strip__arrow strip__arrow--prev" type="button" aria-label="Previous" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 L7 12 L15 20"/></svg>
+          </button>
+          <button class="strip__arrow strip__arrow--next" type="button" aria-label="Next">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 L17 12 L9 20"/></svg>
+          </button>
+        </div>
+          </div>
+        </div>
+      </li>
+      <li class="world has-shots" data-world="eraumavez" style="--i:5">
+        <button class="world__link" type="button" aria-expanded="false" aria-controls="panel-eraumavez">
+          <span class="world__title" data-l="en" lang="en">Once Upon a Time</span>
+          <span class="world__title" data-l="pt" lang="pt">Era Uma Vez</span>
+          <span class="world__meta">
+            <span class="world__role" data-l="en" lang="en"><span class="world__roleLine">Created &amp; produced</span></span>
+            <span class="world__role" data-l="pt" lang="pt"><span class="world__roleLine">Idealização e produção</span></span>
+            <span class="world__place"><span class="world__placeLine">Teatro Bradesco</span><span class="world__placeLine">Teatro FAAP</span><span class="world__placeLine">São Paulo</span></span>
+          </span>
+                  <span class="world__count">
+            <svg class="world__caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9 L12 16 L19 9"/></svg>
+          </span>
+        </button>
+        <div class="world__panel" id="panel-eraumavez">
+          <div class="world__panelIn">
+        <dl class="world__credits">
+          <div><dt>Dir.</dt><dd>Bruno Sigrist</dd></div>
+          <div><dt>Music Dir.</dt><dd>Rafael Marão</dd></div>
+          <div><dt>Chor.</dt><dd>Mariana Barros</dd></div>
+          <div><dt>Prod.</dt><dd>RJ Produções</dd></div>
+          <div><dt>Realização</dt><dd>Ministério do Turismo · Fundação Bachiana</dd></div>
+        </dl>
+        <div class="strip">
+          <div class="strip__track">
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-01.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-02.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-03.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-04.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-05.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-06.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-07.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-08.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-09.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-10.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-11.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-12.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-13.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-14.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-15.jpg" alt="" width="1500" height="2250" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-16.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-17.jpg" alt="" width="1500" height="1002" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-18.jpg" alt="" width="1500" height="1002" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-19.jpg" alt="" width="1500" height="1002" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-20.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-21.jpg" alt="" width="1500" height="1002" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-22.jpg" alt="" width="1500" height="1002" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-23.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+            <figure class="shot"><img src="assets/img/eraumavez/eraumavez-24.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></figure>
+          </div>
+          <button class="strip__arrow strip__arrow--prev" type="button" aria-label="Previous" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 L7 12 L15 20"/></svg>
+          </button>
+          <button class="strip__arrow strip__arrow--next" type="button" aria-label="Next">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 L17 12 L9 20"/></svg>
+          </button>
+        </div>
+          </div>
+        </div>
+      </li>
+  </ol>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CHAPTER 06 — THE PRESS
+
+     Four pieces other people wrote, and the coda. Deliberately not headed
+     NEWS: four dated items under that word, newest in 2023, read as a page
+     that stopped. Under PRESS the dates are provenance rather than lateness,
+     and nothing about the content had to change.
+
+     HEADLINES ARE NOT TRANSLATED — two were published in English, two in
+     Portuguese, and they stay as printed in both versions of the site. Only
+     the label and the dates switch. A headline is a quotation.
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="press" id="chapter-06" aria-label="Press">
+  <div class="press__dawn" aria-hidden="true"></div>
+  <div class="press__inner">
+    <h2 class="press__head" data-l="en" lang="en">Press</h2>
+    <h2 class="press__head" data-l="pt" lang="pt">Imprensa</h2>
+
+    <ol class="press__list" id="press-list">
+      <li class="press__item">
+        <a class="press__link" href="https://creative.northwestern.edu/2023/10/10/from-performing-in-musicals-to-leading-her-own-company-mslce-blog-northwestern/" target="_blank" rel="noopener">
+        <span class="press__date">
+          <time datetime="2023-10-10" data-l="en" lang="en">10 October 2023</time>
+          <time datetime="2023-10-10" data-l="pt" lang="pt">10 de Outubro de 2023</time>
+        </span>
+        <span class="press__shot"><img src="assets/img/portrait-blazer.jpg" alt="" width="934" height="1400" loading="lazy" decoding="async"></span>
+        <span class="press__body">
+          <span class="press__outlet">Northwestern Communication</span>
+          <span class="press__title" lang="en">From Performing in Musicals to Leading Her Own Company</span>
+          <span class="press__excerpt" lang="en">Roberta Jafet &rsquo;23 says her enthusiasm for the arts began as a child in S&atilde;o Paulo, Brazil. She was involved in every arts-related activity possible, from theater to choir.</span>
+          <span class="press__more">
+            <span data-l="en" lang="en">Read more</span>
+            <span data-l="pt" lang="pt">Leia mais</span>
+          </span>
+        </span>
+        </a>
+      </li>
+      <li class="press__item">
+        <a class="press__link" href="https://www.graded.br/about/school-media/the-graded-gazette/news-piece-page/~board/all-school-news/post/alumni-spotlight-roberta-jafet-10" target="_blank" rel="noopener">
+        <span class="press__date">
+          <time datetime="2021-09-30" data-l="en" lang="en">30 September 2021</time>
+          <time datetime="2021-09-30" data-l="pt" lang="pt">30 de Setembro de 2021</time>
+        </span>
+        <span class="press__shot"><img src="assets/img/portrait-standing.jpg" alt="" width="934" height="1400" loading="lazy" decoding="async"></span>
+        <span class="press__body">
+          <span class="press__outlet">The Graded Gazette</span>
+          <span class="press__title" lang="en">Architect-actress-singer-dancer-producer Roberta Jafet &rsquo;10 leads a double life.</span>
+          <span class="press__excerpt" lang="en">When she is not working as a retail experience architect at Est&uacute;dio Jacarand&aacute;, where she designs for clients such as Natura, Unilever, Lindt, and Bradesco, Roberta performs in Broadway franchises.</span>
+          <span class="press__more">
+            <span data-l="en" lang="en">Read more</span>
+            <span data-l="pt" lang="pt">Leia mais</span>
+          </span>
+        </span>
+        </a>
+      </li>
+      <li class="press__item">
+        <a class="press__link" href="https://www.kleberpatricio.com.br/lazer-gastronomia/era-uma-vez-um-show-reune-a-bachiana-e-as-cantoras-anna-akisue-roberta-jafet-e-lara-suleiman/" target="_blank" rel="noopener">
+        <span class="press__date">
+          <time datetime="2021-07-28" data-l="en" lang="en">28 July 2021</time>
+          <time datetime="2021-07-28" data-l="pt" lang="pt">28 de Julho de 2021</time>
+        </span>
+        <span class="press__shot"><img src="assets/img/eraumavez/eraumavez-11.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></span>
+        <span class="press__body">
+          <span class="press__outlet">Kleber Patricio</span>
+          <span class="press__title" lang="pt">&ldquo;Era uma Vez, Um Show&rdquo; re&uacute;ne a Bachiana e as cantoras Anna Akisue, Roberta Jafet e Lara Suleiman</span>
+          <span class="press__excerpt" lang="pt">A Funda&ccedil;&atilde;o Bachiana realiza, em uma parceria da Lab Cultural com a atriz, cantora, bailarina e arquiteta Roberta Jafet, um concerto cheio de magia e emo&ccedil;&atilde;o.</span>
+          <span class="press__more">
+            <span data-l="en" lang="en">Read more</span>
+            <span data-l="pt" lang="pt">Leia mais</span>
+          </span>
+        </span>
+        </a>
+      </li>
+      <li class="press__item">
+        <a class="press__link" href="http://www.folhadoabc.com.br/index.php/secoes/cultura-lazer/item/19343-orquestra-bachiana-recebe-as-cantoras-anna-akisue-roberta-jafet-e-lara-suleiman" target="_blank" rel="noopener">
+        <span class="press__date">
+          <time datetime="2021-06-24" data-l="en" lang="en">24 June 2021</time>
+          <time datetime="2021-06-24" data-l="pt" lang="pt">24 de Junho de 2021</time>
+        </span>
+        <span class="press__shot"><img src="assets/img/eraumavez/eraumavez-01.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></span>
+        <span class="press__body">
+          <span class="press__outlet">Folha do ABC</span>
+          <span class="press__title" lang="pt">Orquestra Bachiana recebe as cantoras Anna Akisue, Roberta Jafet e Lara Suleiman</span>
+          <span class="press__excerpt" lang="pt">Funda&ccedil;&atilde;o Bachiana realiza, em parceria com a atriz, cantora, bailarina e arquiteta Roberta Jafet e a Lab Cultural, um concerto cheio de magia e emo&ccedil;&atilde;o: Era uma Vez, Um Show.</span>
+          <span class="press__more">
+            <span data-l="en" lang="en">Read more</span>
+            <span data-l="pt" lang="pt">Leia mais</span>
+          </span>
+        </span>
+        </a>
+      </li>
+      <li class="press__item">
+        <a class="press__link" href="https://sessaopopular.com.br/2021/05/12/sessao-entrevista-roberta-jafet/" target="_blank" rel="noopener">
+        <span class="press__date">
+          <time datetime="2021-05-12" data-l="en" lang="en">12 May 2021</time>
+          <time datetime="2021-05-12" data-l="pt" lang="pt">12 de Maio de 2021</time>
+        </span>
+        <span class="press__shot"><img src="assets/img/wicked/wicked-01.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></span>
+        <span class="press__body">
+          <span class="press__outlet">Sess&atilde;o Popular</span>
+          <span class="press__title" lang="pt">Roberta Jafet fala sobre Wicked</span>
+          <span class="press__excerpt" lang="pt">Desde muito nova, Roberta Jafet teve contato direto com o universo das artes e p&ocirc;de experimentar diversas vertentes art&iacute;sticas. H&aacute; pouco mais de 12 anos iniciou seus estudos focados no universo de teatro musical.</span>
+          <span class="press__more">
+            <span data-l="en" lang="en">Read more</span>
+            <span data-l="pt" lang="pt">Leia mais</span>
+          </span>
+        </span>
+        </a>
+      </li>
+      <li class="press__item">
+        <a class="press__link" href="https://abroadwayeaqui.com.br/2018/08/12/um-musical-para-roberta-jafet/" target="_blank" rel="noopener">
+        <span class="press__date">
+          <time datetime="2018-08-12" data-l="en" lang="en">12 August 2018</time>
+          <time datetime="2018-08-12" data-l="pt" lang="pt">12 de Agosto de 2018</time>
+        </span>
+        <span class="press__shot"><img src="assets/img/portrait-close.jpg" alt="" width="800" height="600" loading="lazy" decoding="async"></span>
+        <span class="press__body">
+          <span class="press__outlet">A Broadway &eacute; Aqui!</span>
+          <span class="press__title" lang="pt">Um Musical para Roberta Jafet</span>
+          <span class="press__excerpt" lang="pt">Ela &eacute; atriz, cantora, bailarina e arquiteta formada pela FAAP. Artisticamente iniciou sua trajet&oacute;ria na Graded American School of S&atilde;o Paulo, onde concluiu o curso de IB Theater HL.</span>
+          <span class="press__more">
+            <span data-l="en" lang="en">Read more</span>
+            <span data-l="pt" lang="pt">Leia mais</span>
+          </span>
+        </span>
+        </a>
+      </li>
+      <li class="press__item">
+        <a class="press__link" href="https://abroadwayeaqui.com.br/2017/10/04/atrizes-de-les-miserables-lancam-canal-no-youtube-karaoke-camarim-9/" target="_blank" rel="noopener">
+        <span class="press__date">
+          <time datetime="2017-10-04" data-l="en" lang="en">4 October 2017</time>
+          <time datetime="2017-10-04" data-l="pt" lang="pt">04 de Outubro de 2017</time>
+        </span>
+        <span class="press__shot"><img src="assets/img/mis/mis-01.jpg" alt="" width="1021" height="720" loading="lazy" decoding="async"></span>
+        <span class="press__body">
+          <span class="press__outlet">A Broadway &eacute; Aqui!</span>
+          <span class="press__title" lang="pt">Atrizes de &ldquo;Les Mis&eacute;rables&rdquo; lan&ccedil;am canal no YouTube: &ldquo;Karaok&ecirc; Camarim 9&rdquo;</span>
+          <span class="press__excerpt" lang="pt">Em reta final de temporada da superprodu&ccedil;&atilde;o &ldquo;Les Mis&eacute;rables&rdquo;, algumas atrizes do elenco decidiram unir as vozes que j&aacute; se encontram semanalmente no palco para criar um canal no YouTube.</span>
+          <span class="press__more">
+            <span data-l="en" lang="en">Read more</span>
+            <span data-l="pt" lang="pt">Leia mais</span>
+          </span>
+        </span>
+        </a>
+      </li>
+      <li class="press__item">
+        <div class="press__link">
+        <span class="press__date">
+          <time datetime="2017-10-03" data-l="en" lang="en">3 October 2017</time>
+          <time datetime="2017-10-03" data-l="pt" lang="pt">03 de Outubro de 2017</time>
+        </span>
+        <span class="press__shot"><img src="assets/img/mis/mis-05.jpg" alt="" width="1379" height="920" loading="lazy" decoding="async"></span>
+        <span class="press__body">
+          <span class="press__outlet">Opini&atilde;o de Peso</span>
+          <span class="press__title" lang="pt">Camarim 9</span>
+          <span class="press__excerpt" lang="pt">O que acontece quando voc&ecirc; divide o mesmo espa&ccedil;o de trabalho com outras pessoas? Pode ser que d&ecirc; encrenca. Mas n&atilde;o &eacute; o que aconteceu no &ldquo;Camarim 9&rdquo; do Teatro Renault.</span>
+          <span class="press__more">
+            <span data-l="en" lang="en">Read more</span>
+            <span data-l="pt" lang="pt">Leia mais</span>
+          </span>
+        </span>
+        </div>
+      </li>
+      <li class="press__item">
+        <div class="press__link">
+        <span class="press__date">
+          <time datetime="2017-10-02" data-l="en" lang="en">2 October 2017</time>
+          <time datetime="2017-10-02" data-l="pt" lang="pt">02 de Outubro de 2017</time>
+        </span>
+        <span class="press__shot"><img src="assets/img/mis/mis-03.jpg" alt="" width="1440" height="960" loading="lazy" decoding="async"></span>
+        <span class="press__body">
+          <span class="press__outlet">Mundo dos Musicais</span>
+          <span class="press__title" lang="pt">Garotas Miser&aacute;veis invadem o Youtube!</span>
+          <span class="press__excerpt" lang="pt">Com dire&ccedil;&atilde;o e concep&ccedil;&atilde;o de V&acirc;nia Canto, as talentosas do Karaok&ecirc; Camarim 9 prometem deixar as barricadas de vez em quando para trazer mais covers.</span>
+          <span class="press__more">
+            <span data-l="en" lang="en">Read more</span>
+            <span data-l="pt" lang="pt">Leia mais</span>
+          </span>
+        </span>
+        </div>
+      </li>
+      <li class="press__item">
+        <a class="press__link" href="http://estantedacultura.blogspot.com/2016/12/entrevista-com-roberta-jafet.html" target="_blank" rel="noopener">
+        <span class="press__date">
+          <time datetime="2016-12-13" data-l="en" lang="en">13 December 2016</time>
+          <time datetime="2016-12-13" data-l="pt" lang="pt">13 de Dezembro de 2016</time>
+        </span>
+        <span class="press__shot"><img src="assets/img/wicked/wicked-03.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></span>
+        <span class="press__body">
+          <span class="press__outlet">Estante da Cultura</span>
+          <span class="press__title" lang="pt">Entrevista com Roberta Jafet</span>
+          <span class="press__excerpt" lang="pt">Roberta Jafet &eacute; atriz, cantora, bailarina e arquiteta. Atualmente est&aacute; em cartaz com Wicked, no Teatro Renault.</span>
+          <span class="press__more">
+            <span data-l="en" lang="en">Read more</span>
+            <span data-l="pt" lang="pt">Leia mais</span>
+          </span>
+        </span>
+        </a>
+      </li>
+      <li class="press__item">
+        <a class="press__link" href="https://caras.uol.com.br/caras-no-teatro/jose-mayer-na-plateia-wicked-fabi-bang-adriana-qadruso-roberta-jafet-sergio-rufino.phtml" target="_blank" rel="noopener">
+        <span class="press__date">
+          <time datetime="2016-08-10" data-l="en" lang="en">10 August 2016</time>
+          <time datetime="2016-08-10" data-l="pt" lang="pt">10 de Agosto de 2016</time>
+        </span>
+        <span class="press__shot"><img src="assets/img/wicked/wicked-05.jpg" alt="" width="1500" height="1000" loading="lazy" decoding="async"></span>
+        <span class="press__body">
+          <span class="press__outlet">Caras</span>
+          <span class="press__title" lang="pt">Jos&eacute; Mayer na plateia</span>
+          <span class="press__excerpt" lang="pt">Ladeado por Adriana Quadros, Roberta Jafet, Fabi Bang e Sergio Rufino, Jos&eacute; Mayer aplaudiu Wicked, em SP. &ldquo;Musicais ca&iacute;ram no gosto das pessoas e t&ecirc;m sido o respiro do teatro nacional&rdquo;, disse ele.</span>
+          <span class="press__more">
+            <span data-l="en" lang="en">Read more</span>
+            <span data-l="pt" lang="pt">Leia mais</span>
+          </span>
+        </span>
+        </a>
+      </li>
+      <li class="press__item">
+        <a class="press__link" href="https://www.robertajafet.com/_files/ugd/b7a037_8bba4d8e72314d5a9dae7bf9f1638cf1.pdf" target="_blank" rel="noopener">
+        <span class="press__date">
+          <time datetime="2012-09" data-l="en" lang="en">September 2012</time>
+          <time datetime="2012-09" data-l="pt" lang="pt">Setembro de 2012</time>
+        </span>
+        <span class="press__shot"><img src="assets/img/portrait-quiet.jpg" alt="" width="1400" height="1400" loading="lazy" decoding="async"></span>
+        <span class="press__body">
+          <span class="press__outlet">Revista Chuf</span>
+          <span class="press__title" lang="pt">Aprendiz de Feiticeira</span>
+          <span class="press__excerpt" lang="pt">Apesar de pouca idade, a mo&ccedil;a j&aacute; esteve em diversos palcos e investe na carreira art&iacute;stica desde pequena.</span>
+          <span class="press__more">
+            <span data-l="en" lang="en">Read more</span>
+            <span data-l="pt" lang="pt">Leia mais</span>
+          </span>
+        </span>
+        </a>
+      </li>
+    </ol>
+
+    <!-- Hidden until the script can make it work: without JavaScript the list
+         is not clipped, so four items behind a dead button never happens. -->
+    <button class="press__button" type="button" id="press-more" aria-controls="press-list" aria-expanded="false" hidden>
+      <span class="press__button__open">
+        <span data-l="en" lang="en">More press</span>
+        <span data-l="pt" lang="pt">Mais not&iacute;cias</span>
+      </span>
+      <span class="press__button__shut">
+        <span data-l="en" lang="en">Show fewer</span>
+        <span data-l="pt" lang="pt">Ver menos</span>
+      </span>
+      <b data-count>8</b>
+    </button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CHAPTER 07 — THE VIDEOS
+
+     Eight clips, and the last chapter. FACADES, NOT EMBEDS: each card is a
+     local thumbnail and a button, and videos.js builds a player only for the
+     one that is clicked. Eight iframes here would have loaded eight players
+     and eight sets of third-party cookies before anybody pressed anything.
+
+     Titles and channels are as YouTube publishes them and are not translated:
+     most of these uploads are not hers to rename.
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="videos" id="chapter-07" aria-label="Videos">
+  <div class="videos__dusk" aria-hidden="true"></div>
+  <div class="videos__inner">
+    <h2 class="videos__head" data-l="en" lang="en">Videos</h2>
+    <h2 class="videos__head" data-l="pt" lang="pt">V&iacute;deos</h2>
+
+    <!-- The arrows sit beside the heading, not on the cards. Each card is a
+         16:9 frame with two lines of caption under it, so an arrow centred on
+         the card lands in the middle of the text. -->
+    <div class="videos__rail">
+      <button class="videos__arrow videos__arrow--prev" type="button" aria-label="Previous" aria-controls="videos-list" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 L7 12 L15 20"/></svg></button>
+      <button class="videos__arrow videos__arrow--next" type="button" aria-label="Next" aria-controls="videos-list" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 L17 12 L9 20"/></svg></button>
+    </div>
+
+    <ol class="videos__list" id="videos-list">
+      <li class="video">
+        <button class="video__btn" type="button" data-video="TAMkxK-bl0Q">
+          <span class="video__frame">
+            <img src="assets/img/video/TAMkxK-bl0Q.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async">
+            <span class="video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4 L20 12 L7 20 Z"/></svg></span>
+          </span>
+          <span class="video__channel">Centro Cultural Fiesp</span>
+          <span class="video__title">LIVE: Jo&atilde;o Carlos Martins: &ldquo;Era Uma Vez&rdquo;</span>
+        </button>
+      </li>
+      <li class="video">
+        <button class="video__btn" type="button" data-video="sViR4vYT5PE">
+          <span class="video__frame">
+            <img src="assets/img/video/sViR4vYT5PE.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async">
+            <span class="video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4 L20 12 L7 20 Z"/></svg></span>
+          </span>
+          <span class="video__channel">Sess&atilde;o Popular</span>
+          <span class="video__title">Era Uma Vez, Um Show</span>
+        </button>
+      </li>
+      <li class="video">
+        <button class="video__btn" type="button" data-video="3TGjZtK97xg">
+          <span class="video__frame">
+            <img src="assets/img/video/3TGjZtK97xg.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async">
+            <span class="video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4 L20 12 L7 20 Z"/></svg></span>
+          </span>
+          <span class="video__channel">Sesi S&atilde;o Paulo</span>
+          <span class="video__title">Bachiana Filarm&ocirc;nica Sesi-SP convida Roberta Jafet</span>
+        </button>
+      </li>
+      <li class="video">
+        <button class="video__btn" type="button" data-video="FPU6fcksWhA">
+          <span class="video__frame">
+            <img src="assets/img/video/FPU6fcksWhA.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async">
+            <span class="video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4 L20 12 L7 20 Z"/></svg></span>
+          </span>
+          <span class="video__channel">Cena Musical</span>
+          <span class="video__title">Era Uma Vez, Medley (A Bela e a Fera / A Princesa Encantada / Aladdin / O Rei Le&atilde;o)</span>
+        </button>
+      </li>
+      <li class="video">
+        <button class="video__btn" type="button" data-video="HU4SlChv7Tg">
+          <span class="video__frame">
+            <img src="assets/img/video/HU4SlChv7Tg.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async">
+            <span class="video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4 L20 12 L7 20 Z"/></svg></span>
+          </span>
+          <span class="video__channel">Cena Musical</span>
+          <span class="video__title">Era Uma Vez, &lsquo;All I Want&rsquo; de High School Musical: The Musical: The Series</span>
+        </button>
+      </li>
+      <li class="video">
+        <button class="video__btn" type="button" data-video="lZ0z2ZcnFLo">
+          <span class="video__frame">
+            <img src="assets/img/video/lZ0z2ZcnFLo.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async">
+            <span class="video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4 L20 12 L7 20 Z"/></svg></span>
+          </span>
+          <span class="video__channel">Dekciw BR</span>
+          <span class="video__title">Roberta Jafet&rsquo;s last Defying Gravity</span>
+        </button>
+      </li>
+      <li class="video">
+        <button class="video__btn" type="button" data-video="gp47nOm-cx4">
+          <span class="video__frame">
+            <img src="assets/img/video/gp47nOm-cx4.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+            <span class="video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4 L20 12 L7 20 Z"/></svg></span>
+          </span>
+          <span class="video__channel">Todo Seu</span>
+          <span class="video__title">Annie, o Musical, Todo Seu (22/01/19)</span>
+        </button>
+      </li>
+      <li class="video">
+        <button class="video__btn" type="button" data-video="kUxPrJseTm4">
+          <span class="video__frame">
+            <img src="assets/img/video/kUxPrJseTm4.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async">
+            <span class="video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4 L20 12 L7 20 Z"/></svg></span>
+          </span>
+          <span class="video__channel">Sess&atilde;o Popular</span>
+          <span class="video__title">Roberta Jafet | Sess&atilde;o Sem No&ccedil;&atilde;o</span>
+        </button>
+      </li>
+    </ol>
+
+    <!-- Hidden until the script can drive it: without JavaScript the list is a
+         plain grid of all eight, which is the better no-JS outcome than three
+         behind a dead control. -->
+    <button class="videos__button" type="button" id="videos-more" aria-controls="videos-list" aria-expanded="false" hidden>
+      <span class="videos__button__open">
+        <span data-l="en" lang="en">All videos</span>
+        <span data-l="pt" lang="pt">Todos os v&iacute;deos</span>
+      </span>
+      <span class="videos__button__shut">
+        <span data-l="en" lang="en">Show fewer</span>
+        <span data-l="pt" lang="pt">Ver menos</span>
+      </span>
+      <b data-count>8</b>
+    </button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CHAPTER 08 — THE CLOSE
+
+     One photograph, full screen, and the end.
+
+     It closes the arc chapter 01 opens: a follow spot searching a dark room
+     for her name, and here she is found, mid-phrase, in full light. It is
+     also the footer the site never had — the name, where to write, where to
+     follow. The page used to stop on a grid of video cards, which is an index
+     and does not end anything.
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="close" id="chapter-08" aria-label="Roberta Jafet">
+  <img class="close__img" src="assets/img/closing.jpg" alt="Roberta Jafet on stage."
+       width="2400" height="1600" loading="lazy" decoding="async">
+  <div class="close__scrim" aria-hidden="true"></div>
+
+  <div class="close__plate">
+    <p class="close__name">Roberta Jafet</p>
+
+    <nav class="close__links" aria-label="Contact and social">
+      <a href="mailto:contato@robertajafet.com">contato@robertajafet.com</a>
+      <a href="https://www.instagram.com/robertajafet" target="_blank" rel="noopener">Instagram</a>
+      <a href="http://www.linkedin.com/in/robertajafet" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://twitter.com/robertajafet" target="_blank" rel="noopener">Twitter</a>
+      <a href="https://www.robertajafet.com/_files/ugd/b7a037_2d00d0507b6c498799bfb308e73b2cf4.pdf" target="_blank" rel="noopener">CV</a>
+    </nav>
+  </div>
+</section>
+
+</main>
+
+<script src="assets/js/lang.js"></script>
+<script src="assets/js/menu.js"></script>
+<script src="assets/js/hero.js"></script>
+<script src="assets/js/unfurl.js"></script>
+<script src="assets/js/calm.js"></script>
+<script src="assets/js/band.js"></script>
+<script src="assets/js/worlds.js"></script>
+<script src="assets/js/lightbox.js"></script>
+<script src="assets/js/press.js"></script>
+<script src="assets/js/videos.js"></script>
+</body>
+</html>

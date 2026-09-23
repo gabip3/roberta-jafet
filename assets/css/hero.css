@@ -1,0 +1,464 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   ROBERTA JAFET — CHAPTER 01, THE OPENING
+   ---------------------------------------------------------------------------
+   A follow spot in a dark room. It searches, finds her name, and opens on it.
+
+   The name is drawn twice: a faint ghost that is always there, and a bright
+   copy masked to the light. That mask is the whole idea — she is revealed by
+   being lit, not by being drawn.
+
+   Rose is the only hue on the page and it exists as light. Everything else is
+   off-white type on a warm black.
+
+   Contents
+     01  Tokens
+     02  Base
+     03  Hero shell and scroll runway
+     04  The light
+     05  Typography
+     06  Room texture and the handoff to dark
+     07  Scroll cue
+     08  The sequence
+     09  Scroll transition
+     10  Responsive
+     11  Reduced motion
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* ── 01 · TOKENS ────────────────────────────────────────────────────────── */
+
+:root {
+  /* A warm black, not a neutral one. The room has plum in it. */
+  --ink:       #0a0709;
+  --ink-lift:  #171115;
+  --chalk:     #f4f1ee;
+
+  /* Her colour, used as light and never as paint. */
+  --rose:      #d96a9a;
+  --rose-hi:   #f7bfd6;
+  --rose-rgb:  217, 106, 154;
+  --rose-hi-rgb: 247, 191, 214;
+
+  --name-size:  clamp(2.4rem, 7.1vw, 9.5rem);
+  --roles-size: clamp(.7rem, 1.24vw, 1.06rem);
+
+  /* Live values, written by hero.js */
+  --sx: 50%;    /* where the light is        */
+  --sy: 47%;
+  --sr: max(40vw, 30vh);   /* how open the light is */
+  --lum: 1;                /* how bright, 0 → 1    */
+  --tilt: 0;    /* beam angle, degrees       */
+  --p: 0;       /* scroll progress, 0 → 1    */
+
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+}
+
+/* ── 02 · BASE ─────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { background: var(--ink); }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--chalk);
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+
+  /* CLIP, NOT HIDDEN.
+
+     overflow-x: hidden forces the other axis from visible to auto, which makes
+     <body> a scroll container. The document still scrolls on <html>, so the
+     nearest scrollport above any element becomes a box that never moves — which
+     breaks anything anchored to it, scroll-linked animation first among them.
+
+     clip stops horizontal overflow without creating a scrollport, and costs
+     nothing. The chapters already used clip; the body had been left behind. */
+  overflow-x: hidden;  /* fallback: browsers without clip have no timelines either */
+  overflow-x: clip;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+:focus-visible { outline: 1px solid var(--rose); outline-offset: 4px; }
+
+/* ── 03 · HERO SHELL AND SCROLL RUNWAY ─────────────────────────────────── */
+
+/* The runway is what the visitor scrolls through while the room stays put. */
+.hero { position: relative; height: 210vh; }
+
+.hero__frame {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+/* ── 04 · THE LIGHT ────────────────────────────────────────────────────── */
+
+.light { position: absolute; inset: 0; pointer-events: none; }
+
+/* The beam: a soft cone falling from above the frame, aimed by --tilt so it
+   always leans towards wherever the light has landed. */
+/* Built from a conic wedge rather than a clipped shape. A polygon gives the
+   cone two hard edges that survive any amount of blur and read as a graphic
+   wedge; a conic gradient has no edges to begin with, and the radial mask
+   takes care of the falloff with distance. */
+.beam {
+  position: absolute;
+  left: 50%;
+  top: -26vh;
+  width: 260vmax;
+  height: 260vmax;
+  margin-left: -130vmax;
+  background: conic-gradient(at 50% 0%,
+    transparent 0deg 163deg,
+    rgba(var(--rose-rgb),    .020) 170deg,
+    rgba(var(--rose-hi-rgb), .135) 180deg,
+    rgba(var(--rose-rgb),    .020) 190deg,
+    transparent 197deg 360deg);
+  -webkit-mask-image: radial-gradient(circle at 50% 0%,
+    rgba(0,0,0,.55) 0%, rgba(0,0,0,.9) 18%, rgba(0,0,0,.4) 46%, transparent 72%);
+          mask-image: radial-gradient(circle at 50% 0%,
+    rgba(0,0,0,.55) 0%, rgba(0,0,0,.9) 18%, rgba(0,0,0,.4) 46%, transparent 72%);
+  filter: blur(26px);
+  transform-origin: 50% 0;
+  transform: rotate(calc(var(--tilt) * 1deg));
+  opacity: calc(var(--lum) * .95);
+  will-change: transform, opacity;
+}
+
+/* The spot itself — where the beam lands. */
+.spot {
+  position: absolute;
+  left: var(--sx);
+  top: var(--sy);
+  width: calc(var(--sr) * 2);
+  height: calc(var(--sr) * 2);
+  transform: translate(-50%, -50%) scale(calc(1 + var(--p) * 2.8));
+  background: radial-gradient(circle,
+    rgba(var(--rose-hi-rgb), .27) 0%,
+    rgba(var(--rose-rgb), .125) 26%,
+    rgba(var(--rose-rgb), .042) 50%,
+    transparent 78%);
+  filter: blur(26px);   /* so it never resolves into a disc */
+  opacity: var(--lum);
+  will-change: transform, opacity;
+}
+
+/* The pool it throws on the floor, flattened by perspective. */
+.pool {
+  position: absolute;
+  left: var(--sx);
+  top: calc(var(--sy) + 27vmin);
+  width: calc(var(--sr) * 3);
+  height: calc(var(--sr) * .42);
+  transform: translate(-50%, -50%) scale(calc(1 + var(--p) * 1.9));
+  background: radial-gradient(ellipse,
+    rgba(var(--rose-rgb), .10) 0%,
+    rgba(var(--rose-rgb), .028) 45%,
+    transparent 72%);
+  opacity: calc(var(--lum) * .75);
+  filter: blur(30px);
+}
+
+/* Two very slow, very faint drifts, so the air in the room is never still. */
+.haze {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0;
+  transition: opacity 3s linear;
+}
+.s2 .haze { opacity: 1; }
+
+.haze--a {
+  left: 12%; top: 24%;
+  width: min(46vmax, 74vw); height: min(34vmax, 44vh);
+  background: radial-gradient(circle, rgba(var(--rose-rgb), .085), transparent 68%);
+  animation: drift-a 34s ease-in-out infinite;
+}
+.haze--b {
+  right: 8%; bottom: 10%;
+  width: min(54vmax, 84vw); height: min(38vmax, 48vh);
+  background: radial-gradient(circle, rgba(var(--rose-rgb), .06), transparent 70%);
+  animation: drift-b 47s ease-in-out infinite;
+}
+@keyframes drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(7vw, 4vh) scale(1.16); }
+}
+@keyframes drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1.1); }
+  50%      { transform: translate(-6vw, -5vh) scale(1); }
+}
+
+/* ── 05 · TYPOGRAPHY ───────────────────────────────────────────────────── */
+
+.type {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform: translateY(calc(var(--p) * -13vh)) scale(calc(1 + var(--p) * .4));
+  opacity: clamp(0, calc((.93 - var(--p)) * 3.2), 1);
+  will-change: transform, opacity;
+}
+
+.name { margin: 0; }
+
+/* Both layers are full-bleed and centre identically, which keeps them in
+   register and — more importantly — puts the lit layer's mask in viewport
+   coordinates, so --sx / --sy can address it directly. */
+.name__layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .26em;
+  padding-bottom: 6vh;
+  font-family: "Libre Baskerville", Baskerville, "Times New Roman", Georgia, serif;
+  font-weight: 400;
+  font-size: var(--name-size);
+  line-height: .94;
+  letter-spacing: .045em;
+  text-indent: .045em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.name__layer--ghost { color: rgba(244, 241, 238, .17); }
+
+/* The idea, in one declaration: she is visible where the light is. */
+.name__layer--lit {
+  color: var(--chalk);
+  text-shadow: 0 0 42px rgba(var(--rose-rgb), .58);
+  -webkit-mask-image: radial-gradient(circle calc(var(--sr) * 1.15) at var(--sx) var(--sy),
+              #000 0%, rgba(0,0,0,.92) 62%, transparent 100%);
+          mask-image: radial-gradient(circle calc(var(--sr) * 1.15) at var(--sx) var(--sy),
+              #000 0%, rgba(0,0,0,.92) 62%, transparent 100%);
+}
+
+.roles {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: 0;
+  margin-top: calc(var(--name-size) * .42 + 2.4rem);   /* the gap the rule used to occupy, tightened now it is gone */
+  transform: translateX(calc(-50% + .21em));
+  width: max-content;
+  max-width: 90vw;
+  font-size: var(--roles-size);
+  font-weight: 300;
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  color: var(--rose);
+  white-space: nowrap;
+  text-align: center;
+}
+.roles .sep { color: rgba(var(--rose-rgb), .5); padding: 0 .18em; }
+
+/* ── 06 · ROOM TEXTURE AND THE HANDOFF TO DARK ─────────────────────────── */
+
+/* Film grain. Without it the gradients read as vector art rather than as a
+   photograph of a lit room. */
+.grain {
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  opacity: .038;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: shift 620ms steps(3) infinite;
+}
+@keyframes shift {
+  0%   { transform: translate(0, 0); }
+  33%  { transform: translate(-2%, 1%); }
+  66%  { transform: translate(1%, -2%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* The room closes in as you scroll, and is fully dark at the handoff. */
+.blackout {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 78% 76% at 50% 48%, transparent 34%, var(--ink) 92%),
+    var(--ink);
+  opacity: clamp(0, calc((var(--p) - .5) * 2.1), 1);
+}
+
+/* A permanent, gentler vignette so the frame edges never read as flat black. */
+.hero__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 88% 84% at 50% 48%, transparent 42%, rgba(0,0,0,.72) 100%);
+}
+
+/* ── 07 · SCROLL CUE ───────────────────────────────────────────────────── */
+
+.cue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(28px, 5vh, 54px);
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 1.4s linear;
+}
+.is-ready .cue { opacity: calc(1 - var(--p) * 4); }
+
+.cue__track {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: clamp(30px, 5vh, 48px);
+  background: linear-gradient(to bottom, transparent, rgba(var(--rose-rgb), .45));
+}
+.cue__dot {
+  position: absolute;
+  left: -1.5px;
+  top: 0;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--rose-hi);
+  box-shadow: 0 0 8px rgba(var(--rose-rgb), .9);
+  animation: fall 3s ease-in-out infinite;
+}
+@keyframes fall {
+  0%   { transform: translateY(0); opacity: 0; }
+  25%  { opacity: 1; }
+  75%  { opacity: 1; }
+  100% { transform: translateY(clamp(26px, 4.6vh, 44px)); opacity: 0; }
+}
+
+/* ── 08 · THE SEQUENCE ─────────────────────────────────────────────────── */
+
+/* Without JS everything is simply present and lit. The .js class is what pulls
+   it back to darkness so the opening has somewhere to start. */
+
+.js .roles { opacity: 0; transition: opacity 1.8s linear; }
+.s4 .roles { opacity: 1; }
+
+/* The light's own choreography lives in hero.js, because it is a path through
+   the room rather than a set of states. */
+
+/* ── 09 · SCROLL TRANSITION ────────────────────────────────────────────── */
+
+/* Driven by --p on :root. The spot and pool swell (section 04), the type rises
+   and grows (05), and the blackout closes (06). At 1.0 the room is dark and
+   chapter 02 can open on stage. */
+
+/* ── 10 · RESPONSIVE ───────────────────────────────────────────────────── */
+
+/* Portrait: the name stacks so it stays monumental instead of shrinking to fit
+   one line, and the light opens wider to cover both lines. */
+@media (max-aspect-ratio: 4/5) {
+  :root {
+    --name-size:  clamp(2.5rem, 13.6vw, 6rem);
+    --roles-size: clamp(.58rem, 2.9vw, .8rem);
+  }
+  .name__layer {
+    flex-direction: column;
+    gap: 0;
+    padding-bottom: 10vh;
+    line-height: 1.02;
+  }
+
+  .roles {
+    margin-top: calc(var(--name-size) * .92 + 1.7rem);
+    white-space: normal;
+    width: 76vw;   /* breaks as "Performer · Producer ·" / "Creative Leader" */
+    transform: translateX(-50%);
+    letter-spacing: .24em;
+    text-indent: .24em;
+    line-height: 2.2;
+  }
+  .beam { clip-path: polygon(44% 0, 56% 0, 88% 100%, 12% 100%); }
+}
+
+/* ── 11 · REDUCED MOTION ───────────────────────────────────────────────── */
+
+/* The light is the content, so it is still delivered — arrived at rather than
+   performed. No sweep, no drift, no grain flicker, no scroll scaling. */
+@media (prefers-reduced-motion: reduce) {
+  .haze, .grain, .cue__dot { animation: none; }
+
+  .js .roles { transition: opacity .4s linear; }
+  .spot, .pool, .type { transform: translate(-50%, -50%); }
+  .spot { transform: translate(-50%, -50%); }
+  .pool { transform: translate(-50%, -50%); }
+  .type { transform: none; opacity: 1; }
+  .beam { transform: none; }
+}
+
+/* ── 13 · LANGUAGE ─────────────────────────────────────────────────────────
+   She lives in the United States and works in Brazil, so the site opens in
+   both. Site level rather than per scene, and pinned top left because that is
+   the corner both chapters keep dark.
+
+   The swap is CSS, not script: each translated element carries data-l and the
+   other one is simply not rendered, which keeps inline markup intact and takes
+   the hidden copy out of the accessibility tree with it.
+*/
+
+:root[data-lang="en"] [data-l="pt"],
+:root[data-lang="pt"] [data-l="en"] { display: none; }
+
+.lang {
+  /* ABSOLUTE, NOT FIXED. Fixed meant it rode down the whole site and sat on
+     top of every chapter heading it passed — it was over the P of PRESS. It
+     belongs to the opening screen; the menu carries it after that. */
+  position: absolute;
+  top: clamp(22px, 3.4vmin, 40px);
+  left: 7vw;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: .7em;
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(9px, .74vw, 11px);
+  letter-spacing: .24em;
+  opacity: 0;
+  transition: opacity 1.3s linear;
+}
+.is-ready .lang { opacity: 1; }
+
+.lang__btn {
+  appearance: none;
+  margin: 0;
+  padding: .35em .1em;
+  border: 0;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  color: rgba(244, 241, 238, .42);
+  cursor: pointer;
+  transition: color .35s linear;
+}
+.lang__btn:hover { color: rgba(244, 241, 238, .8); }
+.lang__btn[aria-pressed="true"] { color: var(--rose); }
+
+/* vertical: EN | PT. It was 11x1 — a dash, which reads as a hyphen joining
+   the two rather than a bar separating them. */
+.lang__sep { width: 1px; height: .95em; background: rgba(244, 241, 238, .3); }
+
+/* Without JS there is no toggle to press, so it stays out of the way. */
+.no-js .lang { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lang { transition: none; }
+}

@@ -1,0 +1,228 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   ROBERTA JAFET — THE MENU
+   ---------------------------------------------------------------------------
+   The site opens with a follow spot searching a dark room for her name. The
+   menu is that room again: it shuts the page out, comes up black, and lights
+   the chapters one after another the way the spot found the name.
+
+   That is the reason it is a full overlay rather than a drawer sliding in from
+   the side. A drawer is a piece of furniture borrowed from somebody else's
+   site; this belongs to hers, and it costs nothing extra to build.
+
+   The button becomes an X. It used to converge into a single line — a beam
+   closing to a slit, which fit the site's own logic and which nobody read as
+   "this closes". An X is the sign everyone already knows, and a control whose
+   meaning has to be explained is a broken control however apt it is.
+
+   The three idle lines stay unequal, which is the part that still belongs to
+   her: a light bar, not a stack of even rungs.
+
+   Contents
+     01  The button
+     02  The room
+     03  The chapters
+     04  Foot
+     05  Reduced motion
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* ── 01 · THE BUTTON ──────────────────────────────────────────────────────
+   Top right, opposite the language. Both corners stay dark in every chapter
+   except the two light ones, which is what --on-paper is for.
+*/
+.menu__btn {
+  position: fixed;
+  top: clamp(18px, 3vmin, 36px);
+  right: 7vw;
+  z-index: 60;
+  width: 42px;
+  height: 34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 7px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 1.3s linear;
+}
+.is-ready .menu__btn { opacity: 1; }
+
+.menu__bar {
+  display: block;
+  height: 1px;
+  background: var(--chalk);
+  /* unequal, like a light bar rather than a stack of even rungs */
+  transition:
+    width 620ms cubic-bezier(.19, 1, .22, 1),
+    transform 620ms cubic-bezier(.19, 1, .22, 1),
+    opacity 380ms linear,
+    background-color 500ms linear;
+}
+.menu__bar:nth-child(1) { width: 42px; }
+.menu__bar:nth-child(2) { width: 28px; }
+.menu__bar:nth-child(3) { width: 35px; }
+
+.menu__btn:hover .menu__bar:nth-child(2) { width: 42px; }
+.menu__btn:hover .menu__bar:nth-child(3) { width: 42px; }
+
+/* open: an X. The bars are 1px tall with a 7px gap, so the outer two are 8px
+   from the middle and have to travel exactly that far to meet. */
+.menu-open .menu__bar { width: 34px; background: var(--chalk); }
+.menu-open .menu__bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.menu-open .menu__bar:nth-child(2) { opacity: 0; transform: scaleX(.2); }
+.menu-open .menu__bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* On the two light chapters the button would vanish into paper. */
+.on-paper .menu__bar { background: var(--paper-ink); }
+.menu-open .menu__bar,
+.menu-open.on-paper .menu__bar { background: var(--chalk); }
+
+
+/* ── 02 · THE ROOM ────────────────────────────────────────────────────────
+   Black, with the same rose bloom the spot has been carrying since chapter 01.
+   It is not a backdrop-filter: the page behind is dense and busy, and blurring
+   it reads as a modal on top of a website. This closes the website instead.
+*/
+.menu__panel {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16vh 7vw 8vh;
+  background:
+    radial-gradient(ellipse 60% 48% at 68% 38%, rgba(var(--rose-rgb), .16) 0%, transparent 70%),
+    #060406;
+  opacity: 0;
+  visibility: hidden;
+  /* the room arrives from the corner the button is in */
+  clip-path: circle(0% at calc(100% - 7vw) clamp(35px, 4.7vmin, 53px));
+  transition:
+    opacity 420ms linear,
+    visibility 0s linear 900ms,
+    clip-path 900ms cubic-bezier(.76, 0, .24, 1);
+}
+.menu-open .menu__panel {
+  opacity: 1;
+  visibility: visible;
+  clip-path: circle(142% at calc(100% - 7vw) clamp(35px, 4.7vmin, 53px));
+  transition:
+    opacity 260ms linear,
+    visibility 0s linear 0s,
+    clip-path 900ms cubic-bezier(.76, 0, .24, 1);
+}
+
+
+/* ── 03 · THE SECTIONS ────────────────────────────────────────────────────
+   Her own words, from her own navigation: HOME, BIO, GALLERY. They were
+   numbered and renamed — 01 Opening, 02 Many Forms — which is the kind of thing
+   that reads as design to the designer and as a puzzle to everyone else. A
+   visitor looking for her biography should find the word BIO.
+*/
+.menu__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu__item {
+  overflow: hidden;   /* so the line can rise out of nothing */
+}
+
+.menu__link {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(14px, 2.2vw, 34px);
+  padding: clamp(.28rem, 1.1vh, .7rem) 0;
+  text-decoration: none;
+  color: rgba(244, 241, 238, .62);
+  transform: translateY(105%);
+  transition:
+    transform 900ms cubic-bezier(.19, 1, .22, 1),
+    color 420ms linear;
+}
+.menu-open .menu__link { transform: none; }
+
+/* staggered, so they light one after another rather than all at once */
+.menu__item:nth-child(1) .menu__link { transition-delay: 120ms, 0s; }
+.menu__item:nth-child(2) .menu__link { transition-delay: 200ms, 0s; }
+.menu__item:nth-child(3) .menu__link { transition-delay: 280ms, 0s; }
+.menu__item:nth-child(4) .menu__link { transition-delay: 360ms, 0s; }
+.menu__item:nth-child(5) .menu__link { transition-delay: 440ms, 0s; }
+
+/* Her rose, not white. Chalk-on-chalk was a change of brightness and read as
+   the link simply getting closer; the rose is the one colour on this site that
+   never appears by accident, so it names what the cursor is on. */
+.menu__link:hover,
+.menu__link:focus-visible { color: var(--rose); }
+
+.menu__name {
+  font-family: "Libre Baskerville", Baskerville, "Times New Roman", Georgia, serif;
+  font-size: clamp(1.7rem, 5.4vw, 4.6rem);
+  line-height: 1.12;
+  letter-spacing: .005em;
+}
+
+
+/* ── 04 · FOOT ──────────────────────────────────────────────────────────── */
+
+.menu__foot {
+  margin-top: clamp(4vh, 7vh, 9vh);
+  display: flex;
+  align-items: baseline;
+  gap: 2.4em;
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+  font-size: clamp(.64rem, .76vw, .78rem);
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 600ms linear 520ms;
+}
+.menu-open .menu__foot { opacity: 1; }
+
+/* the language pair, carried here because the fixed one at the top is gone */
+.menu__lang {
+  display: inline-flex;
+  align-items: center;
+  gap: .7em;
+  font-size: clamp(.64rem, .76vw, .78rem);
+  letter-spacing: .22em;
+}
+.menu__lang .lang__btn { color: rgba(244, 241, 238, .5); }
+.menu__lang .lang__btn:hover { color: var(--rose); }
+.menu__lang .lang__btn[aria-pressed="true"] { color: var(--rose); }
+
+.menu__foot a {
+  color: rgba(244, 241, 238, .5);
+  text-decoration: none;
+  transition: color 380ms linear;
+}
+.menu__foot a:hover,
+.menu__foot a:focus-visible { color: var(--rose); }
+
+/* the page must not scroll behind the room */
+.menu-open { overflow: hidden; }
+
+
+/* ── 05 · REDUCED MOTION ──────────────────────────────────────────────────
+   The room still opens and the chapters are still there; nothing sweeps.
+*/
+@media (prefers-reduced-motion: reduce) {
+  .menu__panel,
+  .menu__link,
+  .menu__bar,
+  .menu__foot { transition-duration: 1ms; transition-delay: 0s; }
+  .menu__panel { clip-path: none; }
+  .menu-open .menu__panel { clip-path: none; }
+}
+
+@media (max-width: 900px) {
+  .menu__btn { right: 7vw; }
+  .menu__panel { padding: 18vh 7vw 8vh; }
+  .menu__foot { flex-direction: column; gap: 1.1em; }
+}

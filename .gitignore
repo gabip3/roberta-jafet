@@ -1,0 +1,7 @@
+# Dev leftovers, never part of the site
+.DS_Store
+Thumbs.db
+*.log
+
+# The single-file build lives outside this folder and is generated, not source
+roberta-jafet.html

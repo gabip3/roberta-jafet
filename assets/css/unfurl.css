@@ -1,0 +1,367 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   ROBERTA JAFET — CHAPTER 02, MANY FORMS
+   ---------------------------------------------------------------------------
+   One artist. Many forms.
+
+   The motion is adapted from the 21st.dev unfurling gallery; the art direction
+   is the hero's. Rose is used the way it is used in chapter 01 — as light —
+   plus one new job here: it leaks through the depth between pictures, so the
+   pink is literally behind her world rather than painted on top of it.
+
+   The original is a demo, and reads like one: rotateY -45°, rotateX 25°,
+   translateZ -800, cards that scale on hover. Everything here is pulled back.
+   The unfolding survives; the distortion does not.
+
+   All of it is driven by one number, --u, written by unfurl.js from the
+   DOCUMENT scroll. There is no nested scroller.
+
+   Contents
+     01  Tokens and progress
+     02  Scene shell
+     03  The hero's last light
+     04  Depth and the pink leak
+     05  The matrix
+     06  The frames
+     07  The statement
+     08  Responsive
+     09  Reduced motion
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* ── 01 · TOKENS AND PROGRESS ──────────────────────────────────────────── */
+
+@property --u  { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --ux { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --uy { syntax: "<number>"; inherits: true; initial-value: 0; }
+
+:root {
+  --u: 0;    /* scroll through this scene, 0 → 1 */
+  --ux: 0;   /* cursor, -1 → 1                   */
+  --uy: 0;
+}
+
+/* Four sub-progressions, so each part of the scene has its own timing.
+     --pm  the world coming out of depth   .08 → 1
+     --pw  the late widening               .45 → 1
+     --pe  the exit: the wall clears       .74 → .93
+     --pz  the sentence leaves, last       .93 → 1
+
+   The exit is the whole reason this section reads as finished rather than cut
+   off. Without it the wall is still at full strength when the sticky frame
+   releases, and the next chapter guillotines it mid-picture and mid-word. Here
+   the pictures recede and fade, the world straightens up, and her sentence is
+   left alone on the black long enough to actually be read. */
+.unfurl {
+  --pm: clamp(0, calc((var(--u) - .08) * 1.09), 1);
+  --pw: clamp(0, calc((var(--u) - .45) * 1.82), 1);
+  --pe: clamp(0, calc((var(--u) - .74) * 5.3), 1);
+  --pz: clamp(0, calc((var(--u) - .93) * 14), 1);
+}
+
+/* ── 02 · SCENE SHELL ──────────────────────────────────────────────────── */
+
+/* A long runway, because the whole point is that this unfolds slowly. */
+.unfurl {
+  position: relative;
+  height: 560vh;
+  background: var(--ink);
+}
+
+.unfurl__frame {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── 03 · THE HERO'S LAST LIGHT ────────────────────────────────────────────
+   The hero ends on black with her rose still in the air. That glow is held
+   here for a moment and only fades once the first pictures have found their
+   way out of the depth — so the two chapters overlap rather than butt up
+   against each other.
+*/
+.unfurl__ember {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background:
+    radial-gradient(circle 42vmax at 50% 46%, rgba(var(--rose-rgb), .16) 0%, rgba(var(--rose-rgb), .04) 40%, transparent 70%);
+  opacity: clamp(0, calc(1 - var(--u) * 3.4), 1);
+}
+
+/* ── 04 · DEPTH AND THE PINK LEAK ──────────────────────────────────────── */
+
+.unfurl__stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1500px;      /* softer than the original 1000px */
+  perspective-origin: 50% 46%;
+}
+
+/* Her colour, sitting behind everything, showing through the gaps as the wall
+   opens. This is the new job pink does in this chapter. */
+.unfurl__leak {
+  position: absolute;
+  width: 80vw;
+  height: 90vh;
+  transform: translateZ(-760px);
+  background:
+    radial-gradient(ellipse 52% 44% at 46% 40%, rgba(var(--rose-rgb), .58) 0%, rgba(var(--rose-rgb), .14) 45%, transparent 72%),
+    radial-gradient(ellipse 40% 30% at 72% 76%, rgba(var(--rose-hi-rgb), .22) 0%, transparent 68%);
+  opacity: calc((.25 + var(--pm) * .55) * (1 - var(--pe) * .55));
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+/* Holds the edges of the scene down so the wall dissolves into the room
+   instead of stopping at a rectangle — and, more importantly, so the top and
+   bottom of the pinned frame are a continuation of the black rather than a
+   seam against the chapters either side of it.
+
+   This must live OUTSIDE .unfurl__stage. The stage carries the perspective,
+   which makes it a 3D rendering context: its children sort by computed Z, not
+   by z-index, so every frame at positive Z and all of the type render in front
+   of anything placed inside it. Out here it is a plain 2D overlay and covers
+   the lot.
+
+   The statement is no longer in here with the pictures (see §07), so these can
+   run deep enough to actually dissolve the wall rather than just nick its edge.
+   Solid ink at the boundary, gone by 20%. */
+.unfurl__edges {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, var(--ink) 0%, var(--ink) 3%, rgba(10, 7, 9, .78) 8%, rgba(10, 7, 9, .3) 14%, transparent 20%),
+    linear-gradient(to top,    var(--ink) 0%, var(--ink) 3%, rgba(10, 7, 9, .78) 8%, rgba(10, 7, 9, .3) 14%, transparent 20%),
+    linear-gradient(to right,  var(--ink) 0%, rgba(10, 7, 9, .5) 6%, transparent 15%),
+    linear-gradient(to left,   var(--ink) 0%, rgba(10, 7, 9, .5) 6%, transparent 15%);
+}
+
+/* ── 05 · THE MATRIX ───────────────────────────────────────────────────────
+   The unfurl itself. Original → here:
+     rotateY  -45 → -8   becomes  -26 → -5
+     rotateX   25 →  4   becomes   15 →  3
+     rotateZ   15 →  2   becomes    8 →  1.5
+     translateZ -800 → 0 becomes -1050 → 0
+
+   Pulled flatter and pushed deeper: it starts further away and arrives less
+   twisted, which reads as cinematic rather than as a perspective stunt.
+*/
+.unfurl__matrix {
+  position: relative;
+  display: flex;
+  gap: 2.2vw;
+  align-items: center;
+  justify-content: center;
+  width: 118vw;
+  height: 150vh;
+  transform-style: preserve-3d;
+  transform:
+    translateZ(calc(-1050px + var(--pm) * 1050px - var(--pe) * 430px))
+    rotateX(calc(15deg - var(--pm) * 12deg - var(--pe) * 3deg + var(--uy) * -1.6deg * (1 - var(--pe))))
+    rotateY(calc(-26deg + var(--pm) * 21deg + var(--pe) * 5deg + var(--ux) * 2.2deg * (1 - var(--pe))))
+    rotateZ(calc(8deg - var(--pm) * 6.5deg - var(--pe) * 1.5deg));
+  will-change: transform;
+}
+
+/* Opposing travel, kept from the original — it is what makes the wall feel
+   alive rather than pushed. */
+.unfurl__col {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2vw;
+  width: 22vw;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.unfurl__col--1 { transform: translateY(calc(var(--pm) * -26%)); }
+.unfurl__col--2 { transform: translateY(calc(-28% + var(--pm) * 32%)); }
+.unfurl__col--3 { transform: translateY(calc(-6% + var(--pm) * -20%)); }
+.unfurl__col--4 { transform: translateY(calc(-22% + var(--pm) * 30%)); }
+
+/* ── 06 · THE FRAMES ───────────────────────────────────────────────────────
+   Not cards. No scale on hover, no dimmed resting state, no uniform tile.
+
+   Each frame takes the real shape of the photograph inside it, via --ar. That
+   is why the wall has rhythm without any of it being invented: her pictures
+   genuinely are a mix of tall and wide, and the frames simply admit it. The
+   only thing imposed is a ceiling, so one very tall portrait cannot run the
+   whole column — and when that ceiling does bite, the crop is biased upward so
+   it takes the crop off her feet and not off her face.
+*/
+.frame {
+  position: relative;
+  flex: 0 0 auto;
+  width: 100%;
+  aspect-ratio: var(--ar, 1.5);
+  max-height: 52vh;
+  margin: 0;
+  transform: translateZ(var(--z, 0));
+  overflow: hidden;
+  background: #0b0809;
+  opacity: calc(1 - var(--pe));
+  box-shadow:
+    0 30px 60px -30px rgba(0, 0, 0, .9),
+    inset 0 0 0 1px rgba(var(--rose-rgb), .07);
+}
+
+.frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  transition: filter 700ms linear;
+}
+
+/* Light arriving, rather than a card reacting. Her photographs go up ungraded
+   — most were shot on black already, which is why they sit in this page
+   without any help. */
+@media (hover: hover) and (pointer: fine) {
+  .frame:hover img { filter: brightness(1.1) contrast(1.02); }
+  .frame:hover {
+    box-shadow:
+      0 30px 60px -30px rgba(0, 0, 0, .9),
+      inset 0 0 0 1px rgba(var(--rose-rgb), .38);
+  }
+}
+
+/* ── 07 · THE STATEMENT ────────────────────────────────────────────────────
+   Flat 2D, above the edge fade, deliberately outside the matrix.
+
+   It used to live in the 3D space and be occluded by the pictures. Once both
+   halves were moved in front of everything that stopped earning its keep, and
+   it started costing: type brought forward in perspective is also thrown
+   outward from the vanishing point, so through the exit both lines drifted into
+   the edge fade — dimming the sentence at the exact moment it is meant to be
+   read. Out here the position is stable at every scroll offset, and the
+   sentence is read square to the viewer.
+
+   The movement it keeps is its own: a small rise as the world opens, and a
+   little drift with the cursor, so it is still part of the scene.
+*/
+.unfurl__type {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.say {
+  position: absolute;
+  margin: 0;
+  font-family: "Libre Baskerville", Baskerville, "Times New Roman", Georgia, serif;
+  color: var(--chalk);
+  white-space: nowrap;
+  letter-spacing: -.006em;
+  /* The wall behind it is photographic, so the type carries its own dark. */
+  text-shadow: 0 0 70px rgba(0, 0, 0, .95), 0 0 24px rgba(0, 0, 0, .82);
+  will-change: transform, opacity;
+}
+
+/* High left, arrives as the world opens. */
+.say--one {
+  left: 8%;
+  top: 23%;
+  font-size: clamp(1.5rem, 5vw, 5rem);
+  transform:
+    translateY(calc((1 - var(--pm)) * 46px))
+    translateX(calc(var(--ux) * 7px));
+  opacity: calc(clamp(0, calc((var(--u) - .12) * 5), 1) * (1 - var(--pz)));
+}
+
+/* Low right, lands last. */
+.say--two {
+  right: 8%;
+  bottom: 28%;
+  font-size: clamp(1.6rem, 5.6vw, 5.6rem);
+  transform:
+    translateY(calc((1 - var(--pw)) * 40px))
+    translateX(calc(var(--ux) * -7px));
+  opacity: calc(clamp(0, calc((var(--u) - .5) * 4.4), 1) * (1 - var(--pz)));
+}
+.say--two em {
+  font-style: normal;
+  color: var(--rose);
+}
+
+/* ── 08 · RESPONSIVE ───────────────────────────────────────────────────────
+   Desktop is the art-directed experience. Below it the world keeps unfolding,
+   with fewer columns, bigger pictures and less rotation — never four slivers.
+*/
+
+/* Tablet — three columns. */
+@media (max-width: 1100px) {
+  .unfurl__col--4 { display: none; }
+  .unfurl__col { width: 29vw; }
+  .unfurl__matrix {
+    width: 124vw;
+    transform:
+      translateZ(calc(-820px + var(--pm) * 820px))
+      rotateX(calc(11deg - var(--pm) * 9deg))
+      rotateY(calc(-19deg + var(--pm) * 15deg))
+      rotateZ(calc(6deg - var(--pm) * 5deg));
+  }
+  .say--one { left: 6%; }
+  .say--two { right: 6%; }
+}
+
+/* Phone — two columns, flatter still, and the pictures get room to be seen. */
+@media (max-width: 720px) {
+  .unfurl { height: 460vh; }
+  .unfurl__col--3 { display: none; }
+  .unfurl__col { width: 41vw; }
+  .unfurl__matrix {
+    width: 104vw;
+    gap: 4vw;
+    transform:
+      translateZ(calc(-540px + var(--pm) * 540px))
+      rotateX(calc(7deg - var(--pm) * 6deg))
+      rotateY(calc(-12deg + var(--pm) * 10deg))
+      rotateZ(calc(3.5deg - var(--pm) * 3deg));
+  }
+  .unfurl__col { gap: 4vw; }
+  .unfurl__stage { perspective: 900px; }
+
+  .say--one { left: 6%; top: 15%; font-size: clamp(1.4rem, 8.6vw, 2.4rem); white-space: normal; width: 74vw; }
+  .say--two { right: 6%; bottom: 17%; font-size: clamp(1.5rem, 9.4vw, 2.7rem); white-space: normal; width: 76vw; text-align: right; }
+
+}
+
+/* ── 09 · REDUCED MOTION ───────────────────────────────────────────────────
+   A simplified experience, as asked: the wall is simply present and flat. No
+   depth, no rotation, no parallax, no scroll-linked travel — but the pictures,
+   the statement is still delivered.
+*/
+@media (prefers-reduced-motion: reduce) {
+  .unfurl { height: auto; }
+  .unfurl__frame { position: static; height: auto; padding: 14vh 0; }
+  .unfurl__stage { position: static; perspective: none; padding: 0 6vw; }
+  .unfurl__ember, .unfurl__leak, .unfurl__edges { display: none; }
+
+  .unfurl__matrix {
+    transform: none;
+    width: 100%;
+    height: auto;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .unfurl__col { transform: none; width: auto; flex: 1 1 240px; }
+  .frame { transform: none; max-height: none; }
+  .frame img { transition: none; }
+
+  .unfurl__type { position: static; }
+  .say { position: static; opacity: 1; transform: none; }
+  .say--one { display: block; margin: 8vh 0 0; text-align: center; }
+  .say--two { display: block; margin: .3em 0 6vh; text-align: center; }
+}

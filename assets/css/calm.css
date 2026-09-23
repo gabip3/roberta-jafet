@@ -1,0 +1,227 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   ROBERTA JAFET — CHAPTER 03, THE PAUSE
+   ---------------------------------------------------------------------------
+   Somewhere to breathe.
+
+   Chapters 01 and 02 are both pinned scenes scrubbed by the scroll: the wheel
+   drives a choreography and the page itself never moves. This one does the
+   opposite, and that is the whole idea. The section sits in normal flow, so
+   after two scenes of held motion the page finally just scrolls. That change of
+   gear is the pause — more than any amount of white space would be.
+
+   It is also the first light surface on the site. The page has been black since
+   the first frame; here the house lights come all the way up. `.calm__dawn`
+   melts the dark of chapter 02 into paper so it arrives as a sunrise rather
+   than a cut, and `.calm__dusk` takes it back down at the bottom, where her
+   productions begin to surface.
+
+   Nothing here is scrubbed. Elements lift into place once, when they are
+   reached, and then stay still.
+
+   Contents
+     01  Tokens
+     02  Shell, dawn and dusk
+     03  The lift
+     04  The spread
+     05  The portrait
+     06  The words
+     07  The invitation
+     08  Responsive
+     09  Reduced motion
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* ── 01 · TOKENS ────────────────────────────────────────────────────────── */
+
+:root {
+  --paper:     #f2ece7;   /* warm off-white — the first light surface */
+  --paper-ink: #1a1215;   /* type on paper                           */
+}
+
+/* ── 02 · SHELL, DAWN AND DUSK ─────────────────────────────────────────── */
+
+.calm {
+  position: relative;
+  background: var(--paper);
+  color: var(--paper-ink);
+  overflow: hidden;
+}
+
+/* Chapter 02 ends in the dark. Rather than cutting to paper, the dark is
+   carried into this section and allowed to burn off — with her rose caught in
+   the middle of it, the way light has behaved since the first frame. */
+.calm__dawn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* 72vh, down from 118vh. The ramp was longer than the screen, so the rose
+     stopped being a moment the light passes through and became a colour you
+     scroll inside — about 27vh of it at full saturation. The proportions of the
+     ramp are kept; the whole thing is just shorter, and the saturated band is
+     roughly halved. */
+  height: 72vh;
+  pointer-events: none;
+  /* Opaque stops all the way down, rather than a translucent dark laid over the
+     paper — that produced a grey-mauve smear instead of light. This runs the
+     ramp the site has wanted since chapter 02: black, through her plum and
+     rose, into paper. */
+  background:
+    radial-gradient(ellipse 76% 38% at 50% 20%, rgba(var(--rose-rgb), .17) 0%, transparent 70%),
+    linear-gradient(to bottom,
+      var(--ink)  0%,
+      var(--ink) 26%,     /* stays black well past the seam, so the join is
+                             a continuation of chapter 02 and not an event */
+      #140b11    36%,
+      #2b1520    46%,
+      #542c3f    56%,
+      #8d5a6c    65%,
+      #bd939a    74%,
+      #ddc9c5    84%,
+      #ece0da    92%,
+      var(--paper) 100%);
+}
+
+/* And back down at the bottom, where her work starts to surface. */
+.calm__dusk {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20vh;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 0%, rgba(26, 18, 21, .06) 55%, rgba(26, 18, 21, .14) 100%);
+}
+
+/* ── 03 · THE LIFT ─────────────────────────────────────────────────────────
+   The only motion in the section: things arrive once and then hold. No
+   scrubbing, nothing tied to the wheel.
+*/
+.js .lift {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 1.5s var(--ease-out) var(--d, 0s),
+    transform 1.6s var(--ease-out) var(--d, 0s);
+}
+.js .lift.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── 04 · THE SPREAD ───────────────────────────────────────────────────────
+   Asymmetric on purpose: the words hold the left and are given far more room
+   than they need, and the picture runs off the right edge of the page.
+*/
+.calm__spread {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .72fr);
+  align-items: center;
+  gap: 7vw;
+  /* 96vh/40vh before. The top was sized to clear a 118vh dawn; the dawn came
+     down to 72vh and this did not come with it, so the section opened with
+     most of a screen of blank paper. The bottom simply had no reason to be
+     that big — 40vh here plus 34vh of dusk plus the next chapter's own top
+     padding made a gap you scroll through wondering if something failed. */
+  padding: 80vh 9vw 16vh;
+  max-width: 1760px;
+  margin: 0 auto;
+}
+
+/* ── 05 · THE PORTRAIT ─────────────────────────────────────────────────────
+   One picture, large, bleeding off the right edge so the page has no frame
+   around it. Delivered as shot.
+*/
+/* It used to run off the right edge of the page. On screen that read as a slab
+   shoved into the corner rather than a placed picture — all of the air ended up
+   on one side of it. It now sits inside the same margin as everything else, so
+   the spread has two edges instead of one. */
+.calm__portrait {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  height: min(74vh, 720px);
+  overflow: hidden;
+}
+.calm__portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 26%;
+}
+
+/* ── 06 · THE WORDS ────────────────────────────────────────────────────── */
+
+.calm__lead {
+  margin: 0;
+  max-width: 16ch;
+  font-family: "Libre Baskerville", Baskerville, "Times New Roman", Georgia, serif;
+  font-size: clamp(1.6rem, 3.5vw, 3.4rem);
+  line-height: 1.34;
+  letter-spacing: -.006em;
+  color: var(--paper-ink);
+}
+
+/* One word in her colour. The sentence turns on it, so it is the only word
+   that gets it. */
+.calm__lead em {
+  font-style: italic;
+  color: var(--rose);
+}
+
+/* ── 07 · THE INVITATION ───────────────────────────────────────────────────
+   A line of type with a rule under it, not a button. It reads as the last
+   sentence of the paragraph, because that is what it is.
+*/
+.calm__invite {
+  margin: 3.4rem 0 0;
+  max-width: 34ch;
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+  font-size: clamp(.82rem, 1.02vw, 1.02rem);
+  line-height: 1.9;
+  color: rgba(26, 18, 21, .66);
+}
+.calm__invite span {
+  display: inline;
+  padding-bottom: .35em;
+  border-bottom: 1px solid rgba(var(--rose-rgb), .5);
+}
+
+/* ── 08 · RESPONSIVE ───────────────────────────────────────────────────── */
+
+@media (max-width: 1000px) {
+  .calm__spread {
+    grid-template-columns: 1fr;
+    gap: 8vh;
+    padding: 68vh 9vw 12vh;
+  }
+  /* Picture first on a phone: it is the thing that makes the page feel calm. */
+  .calm__portrait {
+    order: -1;
+    margin: 0 -9vw;
+    width: calc(100% + 18vw);
+    height: min(52vh, 460px);
+  }
+  .calm__lead { max-width: none; font-size: clamp(1.5rem, 6.4vw, 2.4rem); }
+  .calm__invite { max-width: none; margin-top: 2.6rem; }
+
+    font-size: clamp(1.3rem, 7.6vw, 2.4rem);
+    margin-left: calc(var(--i) * 3.4vw);
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 620px) {
+  .calm__spread { padding-top: 74vh; }
+}
+
+/* ── 09 · REDUCED MOTION ───────────────────────────────────────────────────
+   There is barely any motion here to begin with, which is the point. Under
+   reduced motion the one entrance is simply removed.
+*/
+@media (prefers-reduced-motion: reduce) {
+  .js .lift { opacity: 1; transform: none; transition: none; }
+}

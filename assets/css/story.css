@@ -1,0 +1,269 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   ROBERTA JAFET — CHAPTER 04, THE STORY
+   ---------------------------------------------------------------------------
+   Her biography, set as a magazine profile rather than a résumé.
+
+   The copy is hers, unedited. What is designed is the hierarchy: four
+   movements — the work, the training, the producing, and now — each given a
+   different measure and a different position on the page, so the eye moves
+   through a spread instead of down a block. Nothing is numbered and nothing is
+   labelled, because the shape of the text is doing that job.
+
+   Where it sits matters. Chapter 03 is the pause and is meant to stay short;
+   chapter 02 is the moving wall and would fight prose. This is its own room,
+   on the same paper as the pause, and it carries the invitation into the index
+   at its end.
+
+   Desktop is art-directed by position: the movements step across the page and
+   the pictures bleed past one edge each. On a phone position cannot carry any
+   of that, so the hierarchy is rebuilt out of scale and rhythm instead — the
+   lede stays large, the detail sets smaller, and the pictures go full width.
+   Not a narrowed desktop.
+
+   Contents
+     01  Shell
+     02  The measure
+     03  The movements
+     04  Emphasis
+     05  The plates
+     06  The invitation
+     07  Mobile
+     08  Reduced motion
+   ═════════════════════════════════════════════════════════════════════════ */
+
+
+/* ── 01 · SHELL ────────────────────────────────────────────────────────── */
+
+.story {
+  position: relative;
+  background: var(--paper);
+  color: var(--paper-ink);
+  overflow-x: clip;
+}
+
+.story__inner {
+  max-width: 1760px;
+  margin: 0 auto;
+  padding: 4vh 9vw 22vh;
+}
+
+
+/* ── 02 · THE MEASURE ──────────────────────────────────────────────────────
+   Two vertical lines, and every single thing on the page starts on one of them:
+   column 1 or column 7. That is the whole fix.
+
+   The first pass gave each movement its own indent — columns 1, 5, 2 and 6 —
+   which meant no block aligned with any other block and the page read as
+   scattered rather than composed. Asymmetry only works against something
+   regular; four different left edges is not asymmetry, it is noise.
+
+   Variation now comes from measure, scale and which of the two lines a
+   movement sits on — never from moving the line itself.
+
+   Rows are explicit rather than auto-placed, so the opening spread (lede left,
+   picture right) is a deliberate pairing and not whatever the flow produced.
+*/
+.story__inner {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 2vw;
+  row-gap: 11vh;
+  align-items: start;
+}
+
+/* ── 03 · THE MOVEMENTS ────────────────────────────────────────────────────
+   Four paragraphs at ONE weight. Same size, same leading, same ink, same face.
+
+   They used to carry four different sizes, three different inks and a serif on
+   the last one, with the scale doing the hierarchy. It made the page read as
+   four kinds of text rather than one person talking, and the smallest of them —
+   the training, set at .64 ink — read as fine print, which is the wrong thing
+   to say about where she studied.
+
+   Nothing is lost by evening them out, because position was already carrying
+   the structure: two alignment lines, alternating, with 15vh between rows. The
+   rhythm is in where the blocks sit, not in how loud they are.
+*/
+.story p {
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+  font-size: clamp(.96rem, 1.18vw, 1.24rem);
+  line-height: 1.82;
+  color: rgba(26, 18, 21, .8);
+  margin: 0;
+}
+
+/* Placement only below this line — no paragraph sets its own type. */
+
+/* Both opening paragraphs hold line A and stack, so the text runs as one
+   column down the left against the tall picture. They used to alternate A then
+   B, which left the whole left-hand side empty beside a 560px photograph and
+   then empty again beneath it — two holes that got much more obvious once the
+   paragraphs stopped varying in size and could no longer disguise them. */
+.story__lede   { grid-column: 1 / span 6; grid-row: 1; }
+.story__detail { grid-column: 1 / span 6; grid-row: 2; }
+
+/* The close is a true spread: two blocks of equal weight, side by side, which
+   fills the row instead of hanging one paragraph in half of it. */
+.story__made   { grid-column: 1 / span 6; grid-row: 4; }
+.story__now    { grid-column: 7 / -1;     grid-row: 4; }
+
+/* ── 04 · EMPHASIS ─────────────────────────────────────────────────────────
+   Taken from her own bold, which is heavy: she marks nearly every proper noun
+   — the shows, her mentors, the schools, the degrees, the theatre, the
+   orchestra, the company. Reproducing that as a typeface change would turn the
+   paragraph into a patchwork, so it is split into two tiers instead.
+
+   Show titles get her colour, because the productions are the spine of the
+   whole site and this is where they are first named in full. Everything else
+   she bolded stays in the body face and simply comes up to full-strength ink
+   against 78% body — present on the page, quiet in the hand.
+*/
+.story em {
+  font-style: italic;
+  color: var(--rose);
+  font-weight: 400;
+}
+
+.story strong {
+  font-weight: 400;
+  color: var(--paper-ink);
+}
+
+
+/* ── 05 · THE PLATES ───────────────────────────────────────────────────────
+   The first sits beside the lede on line B and runs off the right edge, so the
+   chapter opens as a spread. The second is a full-bleed band across the whole
+   page — it breaks the two-line rhythm once, on purpose, rather than
+   introducing a third alignment nobody asked for.
+*/
+.story__plate {
+  margin: 0;
+  overflow: hidden;
+}
+.story__plate img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.story__plate--a {
+  grid-column: 7 / -1;
+  grid-row: 1 / span 2;
+  /* The grid is align-items: start, which is right for the text — paragraphs
+     hang from their row. It is wrong for this: the picture is shorter than the
+     two paragraphs it stands against, so starting it left a void underneath
+     and the spread read as top-heavy. Centred, it balances the column. */
+  align-self: center;
+  margin-right: -9vw;
+  height: min(60vh, 560px);
+}
+
+/* EDGE TO EDGE, AND IT MOVES.
+
+   Three things were wanted here at once: the picture full width to the edges of
+   the screen, the whole picture, and a parallax. Any two of those fit together
+   and the third does not, so it is worth writing down which one bends.
+
+   A parallax needs slack — the frame has to be shorter than the picture, and
+   the difference is the travel. The picture is 3:2, so bled to the full width
+   of a 1524px screen it stands 1015px tall. Frames shorter than that have
+   travel; a frame that tall has none.
+
+   So the width is whole and permanent, and the height is what gives. That is
+   the right way round: cropping the SIDES would take the broomstick and the
+   corn, which is the reason the photograph is any good. Cropping a slice off
+   the top and bottom takes sky and shadow, and the drift hands both back as
+   you scroll — the whole picture is seen, just not in one instant.
+
+   Sides are guaranteed by geometry rather than by object-fit: the image is
+   width 100% at height auto, so it renders at its own ratio and there is no
+   horizontal crop available for the browser to make.
+*/
+.story__plate--b {
+  grid-column: 1 / -1;
+  grid-row: 3;
+
+  /* Out of the text measure and onto the screen edges.
+
+     --vw is the document width WITHOUT the scrollbar, written by band.js. Plain
+     100vw includes it, which pushed the right-hand 15px of the picture off the
+     screen — on a plate whose whole point is reaching the edges, that is the
+     one edge you would notice. 100vw is the fallback when the script is gone. */
+  width: var(--vw, 100vw);
+  margin-left: calc(50% - var(--vw, 100vw) / 2);
+
+  /* as close to the full screen as the chapter allows */
+  height: min(92vh, 940px);
+  overflow: hidden;
+}
+.story__plate--b img {
+  width: 100%;
+  /* auto, NOT 100% — this is what makes a side crop impossible */
+  height: auto;
+  object-fit: fill;
+  will-change: transform;
+}
+
+/* ── 06 · THE INVITATION ───────────────────────────────────────────────────
+   Moved here from the pause. It used to sit at the end of chapter 03, which
+   meant it handed over before the story had been told.
+*/
+.story__invite {
+  grid-column: 7 / -1;
+  grid-row: 5;
+  font-size: clamp(.82rem, 1.02vw, 1.02rem);
+  line-height: 1.9;
+  color: rgba(26, 18, 21, .6);
+}
+.story__invite span {
+  padding-bottom: .35em;
+  border-bottom: 1px solid rgba(var(--rose-rgb), .5);
+}
+
+
+/* ── 07 · MOBILE ───────────────────────────────────────────────────────────
+   Position cannot carry hierarchy at this width, so scale and rhythm do it
+   instead. Every movement goes full measure; the lede stays noticeably larger
+   than the detail; the gaps between movements do the separating that the
+   staggered columns did on desktop. The plates go edge to edge, which is the
+   one thing a phone does better than a desktop.
+*/
+@media (max-width: 900px) {
+  .story__inner {
+    display: block;
+    padding: 2vh 7vw 16vh;
+  }
+
+  .story__lede,
+  .story__detail,
+  .story__made,
+  .story__now,
+  .story__invite,
+  .story__plate { grid-column: auto; grid-row: auto; margin-bottom: 9vh; }
+
+  /* one weight here as well; the phone already stacks them in one column, so
+     an even size is the only thing keeping them from looking sorted by rank */
+  .story p { font-size: clamp(.95rem, 4.2vw, 1.12rem); line-height: 1.8; }
+
+  .story__plate {
+    margin: 0 -7vw 9vh;
+    width: calc(100% + 14vw);
+  }
+  .story__plate--a { height: min(42vh, 340px); }
+
+  /* full width of a phone is barely wider than the picture is tall, so the
+     frame can be generous and still leave travel */
+  .story__plate--b {
+    width: var(--vw, 100vw);
+    margin-left: calc(50% - var(--vw, 100vw) / 2);
+    height: min(52vh, 420px);
+  }
+}
+
+
+/* ── 08 · REDUCED MOTION ───────────────────────────────────────────────────
+   The lift is shared with chapter 03 and is switched off there; nothing else
+   in this chapter moves.
+*/

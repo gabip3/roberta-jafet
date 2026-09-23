@@ -1,0 +1,145 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   ROBERTA JAFET — CHAPTER 08, THE CLOSE
+   ---------------------------------------------------------------------------
+   One photograph, full screen, and the end of the site.
+
+   IT CLOSES THE ARC THE HERO OPENS. Chapter 01 is a follow spot searching a
+   dark room until it finds her name. This is her found: mid-phrase, arm up,
+   in full light. The light goes looking at the start and lands at the end.
+
+   It also fixes something the site simply did not have. It used to finish on a
+   grid of video cards, which is an index — and an index does not end anything,
+   it just stops. And there was no footer at all: no name, no contact, no way
+   to follow her. Both jobs belong to the same screen.
+
+   Contents
+     01  The frame
+     02  The scrim
+     03  The plate
+     04  Responsive and reduced motion
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* ── 01 · THE FRAME ──────────────────────────────────────────────────────
+   Full bleed, full height. The picture is 2400x1600 and covers a viewport of
+   any shape, so the crop is anchored high: the raised arm is the gesture the
+   photograph is of, and it is the first thing a centred crop destroys.
+*/
+.close {
+  position: relative;
+  height: 100svh;          /* svh so a phone toolbar cannot crop the ending */
+  min-height: 520px;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.close__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Vertical only: at full-bleed width the picture covers exactly, so there
+     is no horizontal crop to position. 15%, not centre and not 26% — the
+     raised hand sits about 100px from the top of the 1600px original, and
+     anything deeper than this starts taking her fingers off. What is given up
+     is stage floor at the bottom, which the scrim was covering anyway. */
+  object-position: 50% 15%;
+}
+
+/* ── 02 · THE SCRIM ──────────────────────────────────────────────────────
+   Only at the bottom. A scrim over the whole picture would dim the stage
+   light, which is the reason the photograph works at all. This one has two
+   jobs: keep the name legible, and take the very last band of the page down
+   to solid black so the site goes out rather than stopping.
+*/
+.close__scrim {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 54%;
+  pointer-events: none;
+  /* It stopped at 90% black, so the photograph was cut off by the bottom edge
+     of the page rather than ending. This runs all the way to solid --ink: the
+     picture goes out instead of being chopped, which on a site about theatre
+     is the lights coming down. It also means the name and the links sit on
+     flat black rather than on whatever the stage happened to be doing. */
+  background: linear-gradient(to bottom,
+    transparent          0%,
+    rgba(6, 3, 6, .16)  30%,
+    rgba(6, 3, 6, .46)  54%,
+    rgba(6, 3, 6, .78)  74%,
+    rgba(6, 3, 6, .94)  88%,
+    var(--ink)         100%);
+}
+
+/* ── 03 · THE PLATE ──────────────────────────────────────────────────────
+   Her name in the serif it has been in since the first frame, and under it the
+   three things a footer is actually for: where to write, where to follow, who
+   made the page.
+*/
+.close__plate {
+  position: absolute;
+  left: 7vw;
+  right: 7vw;
+  bottom: clamp(2.2rem, 6vh, 4.5rem);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(1.4rem, 3vh, 2.4rem);
+}
+
+.close__name {
+  margin: 0;
+  font-family: "Libre Baskerville", Baskerville, "Times New Roman", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.7rem, 4.4vw, 4rem);
+  line-height: 1;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  color: var(--chalk);
+}
+
+.close__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(1.1rem, 2.4vw, 2.4rem);
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+  font-size: clamp(.64rem, .76vw, .8rem);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.close__links a {
+  color: rgba(244, 241, 238, .66);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: .25em;
+  transition: color 360ms linear, border-color 360ms linear;
+}
+.close__links a:hover,
+.close__links a:focus-visible {
+  color: var(--rose);
+  border-bottom-color: var(--rose);
+}
+.close__links a:focus-visible { outline: none; }
+
+/* ── 04 · RESPONSIVE AND REDUCED MOTION ──────────────────────────────────
+   On a phone the name and the links stop competing for one line: the name
+   takes the row, the links go under it.
+*/
+@media (max-width: 720px) {
+  .close__plate {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .close__scrim { height: 64%; }
+  .close__img { object-position: 44% 10%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .close__links a { transition: none; }
+}
