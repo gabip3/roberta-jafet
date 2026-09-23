@@ -1,0 +1,115 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   ROBERTA JAFET — THE PHONE PASS
+   ---------------------------------------------------------------------------
+   Loaded last, and only this file may override a chapter's own mobile rules.
+
+   The chapters were each made responsive on their own and each one is fine in
+   isolation. What went wrong is what always goes wrong that way: nobody was
+   measuring the whole page at 375px at once. Twenty pieces of type ended up
+   under 12px, five controls ended up too small to hit with a thumb, and one
+   line was being cut off at both edges by a transform three ancestors up.
+
+   Three problems, in order of how badly they read:
+
+     01  Type that shrank below reading size
+     02  Controls too small for a thumb
+     03  The roles line, cut off by the hero zoom
+   ═════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 720px) {
+
+  /* ── 01 · NOTHING UNDER 12px ─────────────────────────────────────────────
+     Every one of these is a clamp whose vw term collapses on a narrow screen,
+     leaving the rem minimum — and those minimums were set by eye on a desktop,
+     where 10px looks like a deliberate small label rather than something you
+     cannot read. Measured on the live site at 375px, the worst was the gallery
+     hint at 9.9px.
+
+     12px is the floor. It is not a style choice; below it the letterspacing
+     these labels carry starts to break words apart visually.
+  */
+  .worlds__hint      { font-size: .78rem; letter-spacing: .18em; line-height: 1.7; }
+  .world__meta,
+  .world__role,
+  .world__roleLine,
+  .world__place,
+  .world__placeLine  { font-size: .76rem; letter-spacing: .13em; }
+  .world__credits dt,
+  .world__credits dd { font-size: .76rem; }
+
+  .press__outlet,
+  .press__more       { font-size: .76rem; letter-spacing: .13em; }
+  .press__date       { font-size: .79rem; }
+  .press__excerpt    { font-size: .88rem; line-height: 1.75; }
+
+  .video__channel    { font-size: .76rem; letter-spacing: .13em; }
+
+  .menu__foot,
+  .menu__lang,
+  .close__links      { font-size: .76rem; letter-spacing: .15em; }
+
+  .press__button,
+  .videos__button    { font-size: .76rem; letter-spacing: .13em; }
+
+
+  /* ── 02 · A THUMB IS NOT A CURSOR ────────────────────────────────────────
+     The language switch was 18x16px. That is not a small target, it is a
+     target you miss — and it is the first control on the page, sitting over a
+     dark hero where a mis-tap does nothing visible to explain itself.
+
+     The padding does the work rather than the font size, so nothing grows
+     visually; the tappable box grows underneath. Everything here clears 44px
+     in at least one direction and most clear it in both.
+  */
+  .lang { gap: .2em; }
+  .lang__btn {
+    /* .6rem left 35px of width: tall enough, narrow enough to miss sideways */
+    padding: .95rem .85rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  /* the separator sits between two padded buttons now, so it needs the height */
+  .lang__sep { height: 1.1em; }
+
+  .menu__btn {
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    padding-right: 1px;   /* keeps the bars optically where they were */
+  }
+
+  .menu__foot a,
+  .close__links a {
+    /* CV is two characters, so the box has to come from padding on both axes */
+    padding: .85rem .35rem;
+    margin: 0 -.35rem;
+    display: inline-block;
+  }
+
+  .press__button,
+  .videos__button { padding: 1.15em 2.1em; }
+
+  /* the strip and video arrows are already 44px; the lightbox ones were not */
+  .lb__nav,
+  .lb__close { width: 46px; height: 46px; }
+
+
+  /* ── 03 · THE ROLES LINE ─────────────────────────────────────────────────
+     It was cut off at both edges, and the reason is three elements up: the
+     hero zooms to scale(1.4) as you scroll through it, so a line sized to fit
+     the screen exactly is 140% of the screen by the end. The name survives
+     because it is short and stacks; this line does not.
+
+     Sized against the zoom instead of against the viewport: 60vw becomes 84vw
+     once scaled, which leaves a margin at the widest moment rather than
+     running out of room. The tighter letterspacing buys back the lines that
+     narrowing would otherwise cost.
+  */
+  .roles {
+    width: 60vw;
+    letter-spacing: .17em;
+    text-indent: .17em;
+    line-height: 2;
+  }
+}
