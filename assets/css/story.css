@@ -67,7 +67,16 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: 2vw;
-  row-gap: 11vh;
+
+  /* PARAGRAPH SPACING, NOT SECTION SPACING. This was 11vh, about 99px on a
+     laptop, applied between every row — so two paragraphs of one continuous
+     biography sat as far apart as two different chapters would. Roberta read
+     it as exactly that: too much space between one paragraph and the next.
+
+     The row gap is paragraph-sized now, and the pictures buy their own air
+     back with margin below. Air around a photograph is composition; air
+     between two halves of a sentence someone is reading is a hole. */
+  row-gap: clamp(1.5rem, 3.2vh, 2.8rem);
   align-items: start;
 }
 
@@ -103,10 +112,18 @@
 .story__lede   { grid-column: 1 / span 6; grid-row: 1; }
 .story__detail { grid-column: 1 / span 6; grid-row: 2; }
 
-/* The close is a true spread: two blocks of equal weight, side by side, which
-   fills the row instead of hanging one paragraph in half of it. */
-.story__made   { grid-column: 1 / span 6; grid-row: 4; }
-.story__now    { grid-column: 7 / -1;     grid-row: 4; }
+/* ONE BLOCK PER ROW, ALWAYS. These two used to share row 4, one on each side,
+   which filled the row and broke the reading. This is continuous prose: you
+   read down the left column, reach the bottom, and then have to go back up and
+   across to carry on. Nothing tells you to. Two paragraphs side by side only
+   work when they are alternatives, and these are consecutive.
+
+   The text moves to the right-hand line after the full-bleed picture instead.
+   The order stays unambiguous — one block per row, top to bottom — and the
+   column changing sides across the picture keeps the page from settling into a
+   single stacked column. */
+.story__made   { grid-column: 7 / -1; grid-row: 4; }
+.story__now    { grid-column: 7 / -1; grid-row: 5; }
 
 /* ── 04 · EMPHASIS ─────────────────────────────────────────────────────────
    Taken from her own bold, which is heavy: she marks nearly every proper noun
@@ -148,9 +165,12 @@
   object-fit: cover;
 }
 
+/* The plates carry the space the row gap used to hand out everywhere. A
+   photograph wants air around it; two paragraphs of the same text do not. */
 .story__plate--a {
   grid-column: 7 / -1;
   grid-row: 1 / span 2;
+  margin-bottom: clamp(2.5rem, 7vh, 5rem);
   /* The grid is align-items: start, which is right for the text — paragraphs
      hang from their row. It is wrong for this: the picture is shorter than the
      two paragraphs it stands against, so starting it left a void underneath
@@ -184,6 +204,7 @@
 .story__plate--b {
   grid-column: 1 / -1;
   grid-row: 3;
+  margin-block: clamp(3rem, 9vh, 7rem);
 
   /* Out of the text measure and onto the screen edges.
 
@@ -212,7 +233,7 @@
 */
 .story__invite {
   grid-column: 7 / -1;
-  grid-row: 5;
+  grid-row: 6;
   font-size: clamp(.82rem, 1.02vw, 1.02rem);
   line-height: 1.9;
   color: rgba(26, 18, 21, .6);
@@ -241,7 +262,7 @@
   .story__made,
   .story__now,
   .story__invite,
-  .story__plate { grid-column: auto; grid-row: auto; margin-bottom: 9vh; }
+  .story__plate { grid-column: auto; grid-row: auto; margin-bottom: clamp(1.4rem, 3vh, 2.2rem); }
 
   /* one weight here as well; the phone already stacks them in one column, so
      an even size is the only thing keeping them from looking sorted by rank */
